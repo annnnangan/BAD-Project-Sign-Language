@@ -7,3 +7,6 @@ jspm_package
 
 .env
 tf_python
+
+snapshot
+data

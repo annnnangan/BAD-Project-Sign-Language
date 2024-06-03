@@ -45,23 +45,6 @@ app.post("/upload", async (req, res) => {
   res.json(output);
 });
 
-// app.post("/predict", async (req, res) => {
-//   const userInput = req.body.data;
-
-//   //fetch the python server
-//   const result = await fetch("http://localhost:8000", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(userInput),
-//   });
-
-//   const output = await result.json();
-
-//   res.json(output);
-// });
-
 app.use(express.static("public"));
 
 //Port Listener

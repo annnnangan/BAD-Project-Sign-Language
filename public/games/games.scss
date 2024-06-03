@@ -1,5 +1,150 @@
-img {
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
-  width: 150px;
+$colorBlue: #25c7d5;
+$colorBeige: #fbf1da;
+
+@keyframes float {
+  0% {
+    transform: translateY(-7%);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.alphabet-lists {
+  img {
+    //-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    //filter: grayscale(100%);
+    width: 150px;
+
+    &:hover {
+      cursor: pointer;
+      animation: float 0.8s infinite alternate-reverse;
+    }
+  }
+}
+
+.modal-content {
+  border: 4px solid $colorBlue;
+  background-color: #fefbf4;
+}
+
+.modal-header {
+  border-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+
+  .left img {
+    width: 380px;
+    transform: translateY(-40px);
+  }
+
+  .right {
+    width: 960px;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .web-cam {
+    width: 100%;
+    height: 90%;
+  }
+
+  .capture {
+    button {
+      border-radius: 20px;
+      padding: 2px 20px;
+      background-color: $colorBlue;
+      border: 0px;
+    }
+  }
+
+  .effect {
+    opacity: 0.5;
+    transition: all 100ms ease;
+  }
+}
+
+.canvas {
+  display: none;
+}
+
+.modal-footer {
+  border-top: 0px;
+}
+
+.character {
+  position: absolute;
+  bottom: -30px;
+  left: -80px;
+
+  // speech bubble
+  .bubble {
+    animation: float 1.5s infinite alternate-reverse;
+    position: relative;
+    margin: 0;
+    padding: 1.2rem 1.5rem 1rem;
+    max-width: 15rem;
+    letter-spacing: 1px;
+    line-height: 1.35;
+    font-size: 13px;
+    text-align: center;
+    background-color: $colorBlue;
+    border-radius: 50%;
+    left: 200px;
+    bottom: -100px;
+
+    &::before {
+      position: absolute;
+      bottom: -1.25rem;
+      left: 1rem;
+      content: "";
+      width: 10rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: transparent;
+      box-shadow: inset -1.5rem -1rem 0 $colorBlue;
+      transform: rotate(-20deg);
+    }
+  }
+
+  // speech text
+  .bubble_text {
+    margin: auto;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.feedback {
+  position: relative;
+
+  .character-face {
+    position: absolute;
+    width: 200px;
+    top: -140px;
+    z-index: -1;
+    left: 135px;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+
+    h5 {
+      font-size: 30px;
+    }
+  }
 }

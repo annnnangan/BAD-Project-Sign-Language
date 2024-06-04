@@ -143,5 +143,16 @@ captureBtn.addEventListener("click", async (event) => {
     backButton.setAttribute("data-bs-dismiss", "modal");
     backButton.removeAttribute("data-bs-target");
     backButton.removeAttribute("data-bs-toggle");
+    confetti({
+      particleCount: 500,
+      spread: 120,
+      origin: { x: 1, y: 0.9 },
+    });
+
+    confetti({
+      particleCount: 500,
+      spread: 120,
+      origin: { x: 0, y: 0.9 },
+    });
   }
 });

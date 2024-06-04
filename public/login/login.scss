@@ -1,0 +1,116 @@
+$colorLightBlue: #94dcea;
+$colorBlue: #25c7d5;
+$colorGreen: #99ddd7;
+$colorBeige: #fbf1da;
+
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+
+h2,
+h3 {
+  font-family: "Slackey", sans-serif;
+  margin: 10px;
+  background-color: #fbf1da;
+}
+
+html,
+body {
+  background-color: $colorLightBlue;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -2;
+  position: relative;
+}
+
+.cloud {
+  width: 200px;
+  position: absolute;
+  animation: moveclouds 3s infinite alternate-reverse;
+  z-index: -1;
+}
+
+.cloud1 {
+  left: 150px;
+  top: 80px;
+}
+
+.cloud2 {
+  right: 150px;
+  top: 200px;
+}
+
+.cloud3 {
+  left: -50px;
+  bottom: 80px;
+}
+
+.cloud4 {
+  right: -30px;
+  bottom: 20px;
+}
+
+.card {
+  background: $colorBeige;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 60px;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 80px;
+
+  img {
+    position: absolute;
+    width: 200px;
+    top: -180px;
+    z-index: -1;
+  }
+}
+
+input:not([type="submit"]) {
+  display: block;
+  width: 100%;
+  margin: 10px 0px;
+  height: 45px;
+  border: rgba(128, 128, 128, 0.193) solid 1px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+input[type="submit"] {
+  margin: 20px 0px;
+  border-radius: 5px;
+  border: rgba(128, 128, 128, 0.193) solid 2px;
+  padding: 5px 30px;
+  background-color: $colorBlue;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  transition: 1s;
+
+  &:hover {
+    background-color: $colorLightBlue;
+    transition: 1s;
+  }
+}
+
+.input-control .error.active {
+  color: #ff3860;
+  font-size: 12px;
+  height: 12px;
+  margin-bottom: 15px;
+}
+
+@keyframes moveclouds {
+  0% {
+    transform: translateX(-100px);
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+    transform: translateY(0px);
+  }
+}

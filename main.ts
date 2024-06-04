@@ -2,10 +2,41 @@
 import express from "express";
 import fetch from "cross-fetch";
 import fs from "fs";
+import Knex from "knex";
+import { UsersService } from "./services/UsersService";
+import { UsersController } from "./controllers/UsersController";
+import expressSession from "express-session";
+import { getUsersRoutes } from "./routes/usersRoutes";
+import { isLoggedIn } from "./utils/guard";
+import { getGamesRoutes } from "./routes/gamesRoutes";
 
-const app = express();
+const knexConfig = require("./knexfile");
+const configMode = process.env.NODE_ENV || "development";
+export const knex = Knex(knexConfig[configMode]);
+
+export const app = express();
+
+export const usersService = new UsersService(knex);
+export const usersController = new UsersController(usersService);
+
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json());
+
+//set up session
+app.use(
+  expressSession({
+    secret: "wsp",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+//session interface
+declare module "express-session" {
+  export interface SessionData {
+    user?: string;
+  }
+}
 
 app.post("/upload", async (req, res) => {
   const userImage = req.body.imageString;
@@ -45,7 +76,11 @@ app.post("/upload", async (req, res) => {
   res.json(output);
 });
 
+app.use("/login", getUsersRoutes());
+app.use("/games", isLoggedIn, getGamesRoutes());
+
 app.use(express.static("public"));
+app.use(isLoggedIn, express.static("protected"));
 
 //Port Listener
 const PORT = 8080;

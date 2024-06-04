@@ -30,6 +30,7 @@ body {
   position: absolute;
   animation: moveclouds 3s infinite alternate-reverse;
   z-index: -1;
+  filter: drop-shadow(7px 11px 5px rgba(0, 0, 0, 0.22));
 }
 
 .cloud1 {

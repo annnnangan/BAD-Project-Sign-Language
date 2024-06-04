@@ -20,6 +20,8 @@ document
 
     const errorDiv = document.querySelectorAll(".error");
 
+    console.log(res);
+
     if (res.status === 200) {
       window.location.href = "/games/games.html";
     } else {

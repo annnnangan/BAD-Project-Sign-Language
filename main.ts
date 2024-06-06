@@ -8,6 +8,8 @@ import { UsersController } from "./controllers/UsersController";
 import expressSession from "express-session";
 import { getUsersRoutes } from "./routes/usersRoutes";
 import { isLoggedIn } from "./utils/guard";
+import { GamesService } from "./services/GamesService";
+import { GamesController } from "./controllers/GamesController";
 import { getGamesRoutes } from "./routes/gamesRoutes";
 
 const knexConfig = require("./knexfile");
@@ -18,6 +20,8 @@ export const app = express();
 
 export const usersService = new UsersService(knex);
 export const usersController = new UsersController(usersService);
+export const gamesService = new GamesService(knex);
+export const gamesController = new GamesController(gamesService);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,6 +39,7 @@ app.use(
 declare module "express-session" {
   export interface SessionData {
     user?: string;
+    user_id?: number;
   }
 }
 

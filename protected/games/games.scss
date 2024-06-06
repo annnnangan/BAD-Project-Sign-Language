@@ -12,14 +12,22 @@ $colorBeige: #fbf1da;
 
 .alphabet-lists {
   img {
-    //-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    //filter: grayscale(100%);
     width: 150px;
 
     &:hover {
       cursor: pointer;
       animation: float 0.8s infinite alternate-reverse;
     }
+  }
+
+  img:not(.completed) {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+  }
+
+  .completed {
+    -webkit-filter: none !important;
+    filter: none !important;
   }
 }
 

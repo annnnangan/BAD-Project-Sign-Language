@@ -13,6 +13,12 @@
   cursor: pointer;
   animation: float 0.8s infinite alternate-reverse;
 }
+.alphabet-lists img:not(.completed) { /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+.alphabet-lists .completed {
+  filter: none !important;
+}
 
 .modal-content {
   border: 4px solid #25c7d5;

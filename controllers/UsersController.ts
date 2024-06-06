@@ -7,8 +7,6 @@ export class UsersController {
 
   getUsersLogin = async (req: Request, res: Response) => {
     const result = await this.usersService.getUserByEmail(req.body.email);
-    console.log(result[0].password);
-    console.log(req.body.password);
     if (result) {
       const matched = await checkPassword(
         req.body.password,
@@ -17,6 +15,7 @@ export class UsersController {
       if (matched) {
         console.log("login success");
         req.session.user = result[0].username;
+        req.session.user_id = result[0].id;
         res.status(200).json({ message: "success" });
       } else {
         res.status(401).json({ message: "error" });

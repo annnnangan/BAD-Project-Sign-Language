@@ -1,22 +1,87 @@
-@keyframes float {
-  0% {
-    transform: translateY(-7%);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+body {
+  background-color: #b2d8fe;
+}
+
+nav {
+  background-color: #ffb134;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0px 30px;
+}
+nav .logo img {
+  width: 200px;
+}
+nav .profile img {
+  width: 100px;
+}
+
+.alphabet-lists {
+  padding: 50px;
+  display: grid; /* 1 */
+  grid-template-columns: repeat(auto-fill, 150px); /* 2 */
+  grid-gap: 30px; /* 3 */
+  justify-content: space-between; /* 4 */
+}
+.alphabet-lists .alphabet-card {
+  width: 150px;
+  height: 220px;
+  background-color: #fff;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
+  padding: 0;
+}
+.alphabet-lists .alphabet-card:hover {
+  cursor: pointer;
+  animation: float 1s infinite alternate-reverse;
+}
+.alphabet-lists [data-alphabet=a],
+.alphabet-lists [data-alphabet=h],
+.alphabet-lists [data-alphabet=r],
+.alphabet-lists [data-alphabet=y] {
+  background-color: #dd9ec1;
+}
+.alphabet-lists [data-alphabet=b],
+.alphabet-lists [data-alphabet=i],
+.alphabet-lists [data-alphabet=m],
+.alphabet-lists [data-alphabet=q] {
+  background-color: #85b547;
+}
+.alphabet-lists [data-alphabet=c],
+.alphabet-lists [data-alphabet=o],
+.alphabet-lists [data-alphabet=s] {
+  background-color: #f3cc17;
+}
+.alphabet-lists [data-alphabet=d],
+.alphabet-lists [data-alphabet=k],
+.alphabet-lists [data-alphabet=n],
+.alphabet-lists [data-alphabet=t],
+.alphabet-lists [data-alphabet=v] {
+  background-color: #c94f3a;
+}
+.alphabet-lists [data-alphabet=e],
+.alphabet-lists [data-alphabet=g],
+.alphabet-lists [data-alphabet=l],
+.alphabet-lists [data-alphabet=p],
+.alphabet-lists [data-alphabet=w] {
+  background-color: #5c97d1;
+}
+.alphabet-lists [data-alphabet=f],
+.alphabet-lists [data-alphabet=u],
+.alphabet-lists [data-alphabet=x] {
+  background-color: #da9a20;
 }
 .alphabet-lists img {
-  width: 150px;
+  width: 120px;
 }
-.alphabet-lists img:hover {
-  cursor: pointer;
-  animation: float 0.8s infinite alternate-reverse;
-}
-.alphabet-lists img:not(.completed) { /* Safari 6.0 - 9.0 */
+.alphabet-lists .alphabet-card:not(.completed) { /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
 }
-.alphabet-lists .completed {
+.alphabet-lists .alphabet-card.completed {
   filter: none !important;
 }
 
@@ -129,4 +194,13 @@
 }
 .feedback .modal-body h5 {
   font-size: 30px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }/*# sourceMappingURL=games.css.map */

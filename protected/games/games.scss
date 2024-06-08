@@ -1,31 +1,112 @@
 $colorBlue: #25c7d5;
 $colorBeige: #fbf1da;
+$colorPink: #dd9ec1;
+$colorGreen: #85b547;
+$colorYellow: #f3cc17;
+$colorRed: #c94f3a;
+$colorDarkBlue: #5c97d1;
+$colorLightBlue: #b2d8fe;
+$colorOrange: #da9a20;
+$colorLightOrange: #ffb134;
 
-@keyframes float {
-  0% {
-    transform: translateY(-7%);
+body {
+  background-color: $colorLightBlue;
+}
+
+nav {
+  background-color: $colorLightOrange;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+
+  padding: 0px 30px;
+
+  .logo img {
+    width: 200px;
   }
-  100% {
-    transform: translateY(0px);
+
+  .profile img {
+    width: 100px;
   }
 }
 
 .alphabet-lists {
-  img {
+  padding: 50px;
+  display: grid; /* 1 */
+  grid-template-columns: repeat(auto-fill, 150px); /* 2 */
+  grid-gap: 30px; /* 3 */
+  justify-content: space-between; /* 4 */
+
+  .alphabet-card {
     width: 150px;
+    height: 220px;
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
+    padding: 0;
 
     &:hover {
       cursor: pointer;
-      animation: float 0.8s infinite alternate-reverse;
+      animation: float 1s infinite alternate-reverse;
     }
   }
 
-  img:not(.completed) {
+  [data-alphabet="a"],
+  [data-alphabet="h"],
+  [data-alphabet="r"],
+  [data-alphabet="y"] {
+    background-color: $colorPink;
+  }
+
+  [data-alphabet="b"],
+  [data-alphabet="i"],
+  [data-alphabet="m"],
+  [data-alphabet="q"] {
+    background-color: $colorGreen;
+  }
+
+  [data-alphabet="c"],
+  [data-alphabet="o"],
+  [data-alphabet="s"] {
+    background-color: $colorYellow;
+  }
+
+  [data-alphabet="d"],
+  [data-alphabet="k"],
+  [data-alphabet="n"],
+  [data-alphabet="t"],
+  [data-alphabet="v"] {
+    background-color: $colorRed;
+  }
+
+  [data-alphabet="e"],
+  [data-alphabet="g"],
+  [data-alphabet="l"],
+  [data-alphabet="p"],
+  [data-alphabet="w"] {
+    background-color: $colorDarkBlue;
+  }
+
+  [data-alphabet="f"],
+  [data-alphabet="u"],
+  [data-alphabet="x"] {
+    background-color: $colorOrange;
+  }
+
+  img {
+    width: 120px;
+  }
+
+  .alphabet-card:not(.completed) {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
   }
 
-  .completed {
+  .alphabet-card.completed {
     -webkit-filter: none !important;
     filter: none !important;
   }
@@ -154,5 +235,14 @@ $colorBeige: #fbf1da;
     h5 {
       font-size: 30px;
     }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(-5%);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }

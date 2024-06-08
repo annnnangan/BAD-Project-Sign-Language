@@ -27,24 +27,25 @@ export async function loadAlphabet() {
     "y",
   ];
 
-  const completeListRes = await fetch(`/games/learning-list`);
-  const completeList = await completeListRes.json();
   alphabetContainer.innerHTML = "";
   //Looping out A - Z images in games overview
   for (let i of lowerCaseLetters) {
-    alphabetContainer.innerHTML += `<img
+    alphabetContainer.innerHTML += `<div class="alphabet-card" data-alphabet="${i}" data-bs-toggle="modal"
+    data-bs-target="#exampleModal" >
+      <img
+      data-alphabet="${i}"
         class="alphabet"
-        data-alphabet="${i}"
         src="./assets/alphabet/${i}-alphabet.png"
         alt="${i} alphabet"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      />`;
+      />
+      </div>`;
   }
-  const alphabetImg = document.querySelectorAll(".alphabet-lists img");
+  const alphabetCard = document.querySelectorAll("div.alphabet-card");
 
-  for (let i of alphabetImg) {
-    console.log(i);
+  const completeListRes = await fetch(`/games/learning-list`);
+  const completeList = await completeListRes.json();
+
+  for (let i of alphabetCard) {
     for (let j in completeList) {
       if (
         i.getAttribute("data-alphabet") === completeList[j]["sign_language"]
@@ -60,7 +61,8 @@ export async function loadAlphabet() {
   const video = document.querySelector(".web-cam");
   const canvas = document.querySelector(".canvas");
   const demoImg = document.querySelector(".left img");
-  alphabetImg.forEach((i) => {
+
+  alphabetCard.forEach((i) => {
     i.addEventListener("click", (event) => {
       console.log("clicked");
       startWebCam();

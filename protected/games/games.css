@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 body {
-  background-color: #b2d8fe;
+  background-color: #fbf1da;
 }
 
 nav {
@@ -17,7 +18,61 @@ nav .profile img {
   width: 100px;
 }
 
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.folder-tab {
+  height: 40px;
+  position: relative;
+  top: 4px;
+  background-color: #b2d8fe;
+  left: 28px;
+  display: inline-block;
+  margin-right: 50px;
+  color: #a3b4c9;
+  cursor: pointer;
+}
+.folder-tab.selected, .folder-tab:hover {
+  color: white;
+  background-color: #5c97d1;
+}
+.folder-tab.selected:before, .folder-tab.selected:after, .folder-tab:hover:before, .folder-tab:hover:after {
+  background-color: #5c97d1;
+}
+.folder-tab span {
+  display: inline-block;
+  margin-left: 8px;
+  margin-right: 8px;
+  line-height: 44px;
+}
+.folder-tab:before {
+  height: 40px;
+  width: 30px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #b2d8fe;
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 0px;
+  transform: skewX(-10deg);
+}
+.folder-tab:after {
+  height: 40px;
+  width: 30px;
+  border-radius: 10px 10px 0px 0px;
+  background-color: #b2d8fe;
+  content: "";
+  position: absolute;
+  right: -25px;
+  top: 0px;
+  transform: skewX(10deg);
+}
+
 .alphabet-lists {
+  background-color: #b2d8fe;
   padding: 50px;
   display: grid; /* 1 */
   grid-template-columns: repeat(auto-fill, 150px); /* 2 */
@@ -83,6 +138,73 @@ nav .profile img {
 }
 .alphabet-lists .alphabet-card.completed {
   filter: none !important;
+}
+
+.quiz-lists {
+  background-color: #b2d8fe;
+  height: 100%;
+  padding: 100px 50px;
+  display: none; /* 1 */
+  grid-template-columns: repeat(auto-fill, 400px);
+  grid-gap: 30px; /* 3 */
+  justify-content: space-between; /* 4 */
+}
+.quiz-lists .quiz-card {
+  position: relative;
+  height: 200px;
+  width: 400px;
+  box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
+  border-radius: 20px;
+  transition: 2s background-color;
+  margin-bottom: 100px;
+}
+.quiz-lists .quiz-card img {
+  width: 150px;
+  position: absolute;
+  top: -80px;
+  right: 20px;
+  filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.272));
+}
+.quiz-lists .quiz-card .description {
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 1px;
+  font-family: "Slackey", sans-serif;
+}
+.quiz-lists .quiz-card:hover {
+  transition: 2s;
+  cursor: pointer;
+  animation: float 1s infinite alternate-reverse;
+}
+.quiz-lists .quiz1 {
+  background-color: #bfdc9a;
+}
+.quiz-lists .quiz1:hover {
+  background-color: #85b547;
+}
+.quiz-lists .quiz2 {
+  background-color: #ffb134;
+}
+.quiz-lists .quiz2:hover {
+  background-color: #da9a20;
+}
+.quiz-lists .quiz3 {
+  background-color: #25c7d5;
+}
+.quiz-lists .quiz3:hover {
+  background-color: #5c97d1;
+}
+.quiz-lists .quiz4 {
+  background-color: #f3cc17;
+}
+.quiz-lists .quiz4:hover {
+  background-color: rgb(246, 219, 96);
+}
+.quiz-lists .quiz5 {
+  background-color: #c94f3a;
+}
+.quiz-lists .quiz5:hover {
+  background-color: #ce7f71;
 }
 
 .modal-content {

@@ -1,4 +1,6 @@
 import { loadAlphabet } from "./js/load-alphabet.js";
+import "./js/load-quiz.js";
+
 window.onload = loadPage();
 
 async function loadPage() {
@@ -11,37 +13,6 @@ async function loadPage() {
   const video = document.querySelector(".web-cam");
   const canvas = document.querySelector(".canvas");
   const demoImg = document.querySelector(".left img");
-
-  // const alphabetImg = document.querySelectorAll(".alphabet-lists img");
-  // console.log(alphabetImg);
-
-  // alphabetImg.forEach((i) => {
-  //   i.addEventListener("click", (event) => {
-  //     console.log("clicked");
-  //     startWebCam();
-  //     console.log(event.target.dataset.alphabet);
-
-  //     demoImg.src = `./assets/sign-language/${event.target.dataset.alphabet}-sign.png`;
-  //     exampleModal.setAttribute(
-  //       "data-alphabet",
-  //       `${event.target.dataset.alphabet}`
-  //     );
-  //     captureBtn.setAttribute(
-  //       "data-alphabet",
-  //       `${event.target.dataset.alphabet}`
-  //     );
-  //   });
-  // });
-
-  // exampleModal.addEventListener("shown.bs.modal", (event) => {
-  //   startWebCam();
-  // });
-
-  // allModal.forEach((i) => {
-  //   i.addEventListener("hidden.bs.modal", (event) => {
-  //     stopWebCam(stream);
-  //   });
-  // });
 
   //Capture User Sign Language with webcam and pass to server for detection
   captureBtn.addEventListener("click", async (event) => {
@@ -108,23 +79,4 @@ async function loadPage() {
       await loadAlphabet();
     }
   });
-
-  // // Opening User Webcam
-  // async function startWebCam() {
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-  //     video.srcObject = stream;
-  //     window.stream = stream;
-  //   } catch (e) {
-  //     console.log(e.toString());
-  //   }
-  // }
-
-  // async function stopWebCam(stream) {
-  //   stream.getTracks().forEach((track) => {
-  //     if (track.readyState == "live") {
-  //       track.stop();
-  //     }
-  //   });
-  // }
 }

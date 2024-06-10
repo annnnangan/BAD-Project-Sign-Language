@@ -2,15 +2,22 @@ $colorBlue: #25c7d5;
 $colorBeige: #fbf1da;
 $colorPink: #dd9ec1;
 $colorGreen: #85b547;
+$colorLightGreen: #bfdc9a;
 $colorYellow: #f3cc17;
+$colorLightYellow: rgb(246, 219, 96);
 $colorRed: #c94f3a;
+$colorLightRed: #ce7f71;
 $colorDarkBlue: #5c97d1;
 $colorLightBlue: #b2d8fe;
 $colorOrange: #da9a20;
 $colorLightOrange: #ffb134;
+$tabsHeight: 40px;
+$tabColor: #fcfcfc;
+$tabSelectedColor: #fff;
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 
 body {
-  background-color: $colorLightBlue;
+  background-color: $colorBeige;
 }
 
 nav {
@@ -31,8 +38,70 @@ nav {
   }
 }
 
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.folder-tab {
+  height: $tabsHeight;
+  position: relative;
+  top: 4px;
+  background-color: $colorLightBlue;
+  left: 28px;
+  display: inline-block;
+  margin-right: 50px;
+  color: #a3b4c9;
+  cursor: pointer;
+  &.selected,
+  &:hover {
+    color: white;
+    background-color: $colorDarkBlue;
+    &:before,
+    &:after {
+      background-color: $colorDarkBlue;
+    }
+  }
+
+  span {
+    display: inline-block;
+    margin-left: 8px;
+    margin-right: 8px;
+    line-height: $tabsHeight + 4;
+  }
+
+  &:before {
+    // opacity:1;
+    height: $tabsHeight;
+    width: 30px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: $colorLightBlue;
+    content: "";
+    position: absolute;
+    left: -25px;
+    top: 0px;
+    -webkit-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
+  &:after {
+    height: $tabsHeight;
+    width: 30px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: $colorLightBlue;
+    content: "";
+    position: absolute;
+    right: -25px;
+    top: 0px;
+    -webkit-transform: skewX(10deg);
+    transform: skewX(10deg);
+  }
+}
+
 .alphabet-lists {
+  background-color: $colorLightBlue;
   padding: 50px;
+
   display: grid; /* 1 */
   grid-template-columns: repeat(auto-fill, 150px); /* 2 */
   grid-gap: 30px; /* 3 */
@@ -109,6 +178,81 @@ nav {
   .alphabet-card.completed {
     -webkit-filter: none !important;
     filter: none !important;
+  }
+}
+
+.quiz-lists {
+  background-color: $colorLightBlue;
+  height: 100%;
+  padding: 100px 50px;
+  display: none; /* 1 */
+  grid-template-columns: repeat(auto-fill, 400px);
+  grid-gap: 30px; /* 3 */
+  justify-content: space-between; /* 4 */
+
+  .quiz-card {
+    position: relative;
+    height: 200px;
+    width: 400px;
+    box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
+    border-radius: 20px;
+    transition: 2s background-color;
+    margin-bottom: 100px;
+
+    img {
+      width: 150px;
+      position: absolute;
+      top: -80px;
+      right: 20px;
+      filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.272));
+    }
+    .description {
+      padding: 10px 20px;
+      position: absolute;
+      bottom: 1px;
+      font-family: "Slackey", sans-serif;
+    }
+
+    &:hover {
+      transition: 2s;
+      cursor: pointer;
+      animation: float 1s infinite alternate-reverse;
+    }
+  }
+
+  .quiz1 {
+    background-color: $colorLightGreen;
+    &:hover {
+      background-color: $colorGreen;
+    }
+  }
+
+  .quiz2 {
+    background-color: $colorLightOrange;
+    &:hover {
+      background-color: $colorOrange;
+    }
+  }
+
+  .quiz3 {
+    background-color: $colorBlue;
+    &:hover {
+      background-color: $colorDarkBlue;
+    }
+  }
+
+  .quiz4 {
+    background-color: $colorYellow;
+    &:hover {
+      background-color: $colorLightYellow;
+    }
+  }
+
+  .quiz5 {
+    background-color: $colorRed;
+    &:hover {
+      background-color: $colorLightRed;
+    }
   }
 }
 

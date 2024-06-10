@@ -13,7 +13,7 @@ body {
 
 .app {
   background: #fff;
-  max-width: 500px;
+  width: 700px;
   border-radius: 10px;
   padding: 30px;
   border: 10px solid #5c97d1;
@@ -24,7 +24,12 @@ body {
   color: #001e4d;
   font-weight: 600;
   border-bottom: 1px solid #333;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
+  margin-top: 5px;
+}
+
+.app span {
+  color: #808080;
 }
 
 .quiz {
@@ -42,15 +47,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: block;
   margin: 0 auto;
 }
 
 .multiple-choices img {
   width: 300px;
+  transform: translateX(-30px);
 }
 
 .btn {
+  transform: translateX(-20px);
   background-color: #fff;
   color: #222;
   font-weight: 500;
@@ -99,17 +105,16 @@ canvas {
 }
 
 .web-cam-container {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
   margin: 20px auto 0;
-  display: none;
+  /* display: none; */
 }
 
 .web-cam {
-  margin: 0 auto;
   max-width: 400px;
 }
 

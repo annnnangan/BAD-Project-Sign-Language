@@ -21,4 +21,15 @@ export class GamesController {
 
     res.json(result);
   };
+
+  getQuizList = async (req: Request, res: Response) => {
+    const result = await this.gamesService.getQuizList();
+    res.json(result);
+  };
+
+  getQuizQuestion = async (req: Request, res: Response) => {
+    const quizID = parseInt(req.query.quiz as string);
+    const result = await this.gamesService.getQuizQuestion(quizID);
+    res.json(result);
+  };
 }

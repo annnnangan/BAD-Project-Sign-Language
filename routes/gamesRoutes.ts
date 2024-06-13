@@ -8,5 +8,7 @@ export const getGamesRoutes = () => {
     "/complete-list/:index",
     gamesController.updateCompleteLanguage
   );
+  gamesRoutes.get("/quiz-list", gamesController.getQuizList);
+  gamesRoutes.get("/quiz", gamesController.getQuizQuestion);
   return gamesRoutes;
 };

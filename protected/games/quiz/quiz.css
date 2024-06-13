@@ -44,19 +44,13 @@ body {
 
 .multiple-choices {
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
 }
 
 .multiple-choices img {
-  width: 300px;
-  transform: translateX(-30px);
+  width: 270px;
 }
 
 .btn {
-  transform: translateX(-20px);
   background-color: #fff;
   color: #222;
   font-weight: 500;
@@ -123,4 +117,5 @@ canvas {
   padding: 8px 20px;
   background-color: #25c7d5;
   border: 0px;
+  cursor: pointer;
 }

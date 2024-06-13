@@ -43,4 +43,27 @@ export class GamesService {
         .into("complete_learning_list");
     }
   }
+
+  async getQuizList() {
+    return await this.knex.select("*").from("quizzes");
+  }
+
+  async getQuizQuestion(quizID: number) {
+    return await this.knex
+      .select(
+        "quizzes.quiz",
+        "quizzes.description",
+        "quiz_questions.question_type_id",
+        "quiz_questions.question",
+        "quiz_questions.image",
+        "quiz_questions.answer",
+        "quiz_choices.choice"
+      )
+      .from("quiz_questions")
+      .orderByRaw("RANDOM()")
+      .limit(5)
+      .leftJoin("quiz_choices", "quiz_questions.id", "quiz_choices.question_id")
+      .leftJoin("quizzes", "quiz_questions.quiz_id", "quizzes.id")
+      .where("quiz_id", quizID);
+  }
 }

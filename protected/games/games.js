@@ -1,5 +1,5 @@
 import { loadAlphabet } from "./js/load-alphabet.js";
-import "./js/load-quiz.js";
+import "./js/load-quiz-list.js";
 
 window.onload = loadPage();
 

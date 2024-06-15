@@ -6,6 +6,7 @@ const quizContainer = document.querySelector(".quiz-lists");
 const monsterColor = ["green", "orange", "blue", "yellow", "red"];
 
 quizTab.addEventListener("click", async (event) => {
+  quizContainer.innerHTML = "";
   alphabetContainer.style.display = "none";
   quizContainer.style.display = "grid";
   learningTab.classList.remove("selected");

@@ -4,7 +4,12 @@ import "./js/load-quiz-list.js";
 window.onload = loadPage();
 
 async function loadPage() {
+  const preload = document.querySelector(".preload");
+
   await loadAlphabet();
+  setTimeout(() => {
+    preload.classList.add("preload-finish");
+  }, 2000);
   const alphabetContainer = document.querySelector(".alphabet-lists");
   const exampleModal = document.getElementById("exampleModal");
   const allModal = document.querySelectorAll(".modal");

@@ -1,35 +1,56 @@
 window.load = loadPage();
 
 async function loadPage() {
+  const preload = document.querySelector(".preload");
+
   const searchParams = new URLSearchParams(location.search);
   const quizID = searchParams.get("quiz");
 
   let questions;
   let currentQuestionIndex = 0;
   let score = 0;
+  const app = document.querySelector(".app");
+  const detectLoader = document.querySelector(".detect-load");
   const questionElement = document.getElementById("question");
   const questionImage = document.querySelector(".question-image");
   const answerButtons = document.getElementById("answer-buttons");
   const multipleChoices = document.querySelector(".multiple-choices");
   const handDetect = document.querySelector(".web-cam-container");
-  const nextButton = document.getElementById("next-btn");
+  const nextButtons = document.querySelectorAll(".next-btn");
+  const feedbackNextButton = document.querySelector(
+    ".detect-feedback .next-btn"
+  );
+  const choiceNextButton = document.querySelector(
+    ".multiple-choices .next-btn"
+  );
+
+  const restartButton = document.querySelector(".restart-btn");
+  const backButton = document.querySelector(".back-btn");
   const captureBtn = document.querySelector(".capture-btn");
   const video = document.querySelector(".web-cam");
   const canvas = document.querySelector(".canvas");
   const quizSmallTitle = document.querySelector(".app span");
   const quizTitle = document.querySelector(".app h1");
+  const detectFeedback = document.querySelector(".detect-feedback");
+  const feedbackImage = document.querySelector(".feedback-image");
+  const feedbackText = document.querySelector(".feedback-text");
+  const signLanguageDemo = document.querySelector(".sign-language-demo");
 
   await startQuiz();
+  console.log(questions);
 
   quizSmallTitle.innerText = questions[0].quiz;
   quizTitle.innerText = questions[0].description;
+
+  setTimeout(() => {
+    preload.classList.add("preload-finish");
+  }, 2000);
 
   async function startQuiz() {
     const quizQuestionRes = await fetch(`/games/quiz?quiz=${quizID}`);
     questions = await quizQuestionRes.json();
     currentQuestionIndex = 0;
     score = 0;
-    nextButton.innerHTML = "Next";
     showQuestion();
   }
 
@@ -37,7 +58,10 @@ async function loadPage() {
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
     questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-    nextButton.style.display = "none";
+    feedbackNextButton.style.display = "none";
+    choiceNextButton.style.display = "none";
+    restartButton.style.display = "none";
+    backButton.style.display = "none";
 
     if (currentQuestion.question_type_id === 2) {
       multipleChoices.style.display = "block";
@@ -53,6 +77,7 @@ async function loadPage() {
         button.addEventListener("click", selectAnswer);
       });
     } else if (currentQuestion.question_type_id === 1) {
+      captureBtn.style.display = "block";
       multipleChoices.style.display = "none";
       handDetect.style.display = "flex";
       startWebCam();
@@ -80,19 +105,22 @@ async function loadPage() {
       button.disabled = true;
     });
 
-    nextButton.style.display = "block";
+    choiceNextButton.style.display = "block";
   }
 
-  nextButton.addEventListener("click", () => {
-    if (currentQuestionIndex < questions.length) {
-      handleNextButton();
-    } else {
-      startQuiz();
-    }
+  nextButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      detectFeedback.style.display = "none";
+      if (currentQuestionIndex < questions.length) {
+        handleNextButton();
+      } else {
+        startQuiz();
+      }
+    });
   });
 
   function handleNextButton() {
-    currentQuestionIndex++;
+    currentQuestionIndex = currentQuestionIndex + 1;
     if (currentQuestionIndex < questions.length) {
       showQuestion();
     } else {
@@ -101,26 +129,28 @@ async function loadPage() {
   }
 
   function showScore() {
-    resetState();
-
-    questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
-    nextButton.innerHTML = "Play Again";
-    nextButton.style.display = "block";
-  }
-
-  function resetState() {
-    nextButton.style.display = "none";
     questionImage.src = "";
     multipleChoices.style.display = "none";
     handDetect.style.display = "none";
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
+    restartButton.style.display = "block";
+    backButton.style.display = "block";
     stopWebCam();
-
-    while (answerButtons.firstChild) {
-      answerButtons.removeChild(answerButtons.firstChild);
-    }
   }
 
+  // function resetState() {
+  //   nextButton.style.display = "none";
+  //   questionImage.src = "";
+  //   multipleChoices.style.display = "none";
+  //   handDetect.style.display = "none";
+  //   stopWebCam();
+  // }
+
   captureBtn.addEventListener("click", async (event) => {
+    captureBtn.style.display = "none";
+    app.classList.add("predicting");
+    detectLoader.style.display = "flex";
+
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
     // get image data as string
     const imageString = canvas.toDataURL("image/jpeg");
@@ -142,11 +172,23 @@ async function loadPage() {
 
     const detectedCharacter = (await response.json()).data;
 
+    setTimeout(() => {
+      app.classList.remove("predicting");
+      detectLoader.style.display = "none";
+      detectFeedback.style.display = "flex";
+      signLanguageDemo.src = `../assets/sign-language/${questionAnswer.toLowerCase()}-sign.png`;
+    }, 2000);
+
     if (detectedCharacter === questionAnswer) {
       score++;
+      feedbackImage.src = "../assets/correct.png";
+      feedbackText.innerText = "Correct!";
+      feedbackNextButton.style.display = "block";
+    } else {
+      feedbackImage.src = "../assets/incorrect.png";
+      feedbackText.innerText = "Incorrect";
+      feedbackNextButton.style.display = "block";
     }
-
-    nextButton.style.display = "block";
   });
 
   async function startWebCam() {

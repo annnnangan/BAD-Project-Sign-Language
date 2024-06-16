@@ -37,7 +37,6 @@ async function loadPage() {
   const signLanguageDemo = document.querySelector(".sign-language-demo");
 
   await startQuiz();
-  console.log(questions);
 
   quizSmallTitle.innerText = questions[0].quiz;
   quizTitle.innerText = questions[0].description;
@@ -109,22 +108,30 @@ async function loadPage() {
   }
 
   nextButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       detectFeedback.style.display = "none";
       if (currentQuestionIndex < questions.length) {
-        handleNextButton();
+        await handleNextButton();
       } else {
         startQuiz();
       }
     });
   });
 
-  function handleNextButton() {
+  async function handleNextButton() {
     currentQuestionIndex = currentQuestionIndex + 1;
     if (currentQuestionIndex < questions.length) {
       showQuestion();
     } else {
       showScore();
+      console.log("Save Score");
+      await fetch("/games/quiz-score", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quiz: quizID, score: score }),
+      });
     }
   }
 
@@ -135,16 +142,9 @@ async function loadPage() {
     questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
     restartButton.style.display = "block";
     backButton.style.display = "block";
-    stopWebCam();
+    //stopWebCam();
+    console.log("show scores");
   }
-
-  // function resetState() {
-  //   nextButton.style.display = "none";
-  //   questionImage.src = "";
-  //   multipleChoices.style.display = "none";
-  //   handDetect.style.display = "none";
-  //   stopWebCam();
-  // }
 
   captureBtn.addEventListener("click", async (event) => {
     captureBtn.style.display = "none";

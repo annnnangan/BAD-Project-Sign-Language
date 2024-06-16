@@ -32,4 +32,18 @@ export class GamesController {
     const result = await this.gamesService.getQuizQuestion(quizID);
     res.json(result);
   };
+
+  updateQuizHighestScore = async (req: Request, res: Response) => {
+    const userID: number = req.session.user_id as number;
+    const quizID: number = parseInt(req.body.quiz as string);
+    const score: number = parseInt(req.body.score);
+
+    const result = await this.gamesService.updateQuizHighestScore(
+      userID,
+      quizID,
+      score
+    );
+    res.json(result);
+    console.log(result);
+  };
 }

@@ -66,4 +66,41 @@ export class GamesService {
       .leftJoin("quizzes", "quiz_questions.quiz_id", "quizzes.id")
       .where("quiz_id", quizID);
   }
+
+  async getQuizCurrentScore(userID: number, quizID: number) {
+    return await this.knex
+      .select("highest_score")
+      .from("quiz_scores")
+      .where("user_id", userID)
+      .andWhere("quiz_id", quizID);
+  }
+
+  async updateQuizHighestScore(userID: number, quizID: number, score: number) {
+    const existingScore = await this.knex
+      .select("highest_score")
+      .from("quiz_scores")
+      .where("user_id", userID)
+      .andWhere("quiz_id", quizID);
+
+    console.log("existingScore", existingScore);
+    console.log("score", score);
+
+    if (existingScore) {
+      if (score > existingScore[0].highest_score) {
+        await this.knex("quiz_scores")
+          .update("highest_score", score)
+          .where("user_id", userID)
+          .andWhere("quiz_id", quizID);
+        return { msg: "success" };
+      } else {
+        return { msg: "Same Score" };
+      }
+    } else {
+      await this.knex("quiz_scores")
+        .update("highest_score", score)
+        .where("user_id", userID)
+        .andWhere("quiz_id", quizID);
+      return { msg: "success" };
+    }
+  }
 }

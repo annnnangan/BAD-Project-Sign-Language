@@ -10,5 +10,6 @@ export const getGamesRoutes = () => {
   );
   gamesRoutes.get("/quiz-list", gamesController.getQuizList);
   gamesRoutes.get("/quiz", gamesController.getQuizQuestion);
+  gamesRoutes.put("/quiz-score", gamesController.updateQuizHighestScore);
   return gamesRoutes;
 };

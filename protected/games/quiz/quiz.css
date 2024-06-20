@@ -28,7 +28,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  transition: all 1s ease;
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 .preload img {
   width: 50px;
@@ -57,8 +57,7 @@ body {
 }
 
 .preload-finish {
-  opacity: 0;
-  pointer-events: none;
+  transform: translateY(-100%);
 }
 
 @keyframes bounces {

@@ -7,7 +7,6 @@ export async function up(knex: Knex): Promise<void> {
     table.integer("question_id").unsigned();
     table.foreign("question_id").references("quiz_questions.id");
     table.string("choice");
-    table.boolean("answer");
     table.timestamps(false, true);
   });
 

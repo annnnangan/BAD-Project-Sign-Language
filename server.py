@@ -4,6 +4,7 @@ from sanic.response import json
 import cv2
 import mediapipe as mp
 import numpy as np
+import tensorflow as tf
 
 app = Sanic("Sign-language")
 
@@ -16,6 +17,8 @@ hands = mp_hands.Hands(static_image_mode=True,min_detection_confidence=0.3)
 
 model_dict = pickle.load(open('./model-final.p','rb'))
 model = model_dict['model']
+
+#model = tf.keras.models.load_model('my_model.keras')
 
 @app.post("/")
 def callModel(request):

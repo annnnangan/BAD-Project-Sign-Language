@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
     { question_id: 8, choice: "E,B,A,D" },
     { question_id: 9, choice: "A,D,F,C" },
     { question_id: 10, choice: "C,A,B,E" },
-    { question_id: 17, choice: "A,B,E,F" },
+    { question_id: 17, choice: "G,M,L,I" },
     { question_id: 18, choice: "I,G,H,M" },
     { question_id: 19, choice: "H,K,G,M" },
     { question_id: 20, choice: "K,M,L,G" },

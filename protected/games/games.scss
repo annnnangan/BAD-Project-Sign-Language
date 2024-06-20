@@ -1,6 +1,7 @@
 $colorBlue: #25c7d5;
 $colorBeige: #fbf1da;
 $colorPink: #dd9ec1;
+$colorLightPink: #ffc4e4;
 $colorGreen: #85b547;
 $colorLightGreen: #bfdc9a;
 $colorYellow: #f3cc17;
@@ -260,13 +261,15 @@ nav {
 .quiz-lists {
   background-color: $colorLightBlue;
   height: 100%;
-  padding: 100px 50px;
+  padding: 100px 10px;
   display: none; /* 1 */
-  grid-template-columns: repeat(auto-fill, 400px);
-  grid-gap: 30px; /* 3 */
-  justify-content: space-between; /* 4 */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 50px;
 
   .quiz-card {
+    flex: 1;
     position: relative;
     height: 200px;
     width: 400px;
@@ -282,6 +285,25 @@ nav {
       right: 20px;
       filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.272));
     }
+
+    .highest-score {
+      padding: 20px 20px;
+
+      h6 {
+        margin-bottom: 0;
+      }
+
+      i {
+        color: rgba(146, 146, 146, 0.886);
+        font-size: 40px;
+      }
+
+      i.scored {
+        color: rgb(252, 215, 67);
+        text-shadow: #fc0 0 0 20px;
+      }
+    }
+
     .description {
       padding: 10px 20px;
       position: absolute;
@@ -297,9 +319,9 @@ nav {
   }
 
   .quiz1 {
-    background-color: $colorLightGreen;
+    background-color: $colorGreen;
     &:hover {
-      background-color: $colorGreen;
+      background-color: $colorLightGreen;
     }
   }
 
@@ -318,9 +340,9 @@ nav {
   }
 
   .quiz4 {
-    background-color: $colorYellow;
+    background-color: $colorPink;
     &:hover {
-      background-color: $colorLightYellow;
+      background-color: $colorLightPink;
     }
   }
 

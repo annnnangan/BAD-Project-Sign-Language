@@ -2,7 +2,7 @@ import { UsersService } from "./UsersService";
 
 import Knex from "knex";
 const knexConfig = require("../knexfile");
-const knex = Knex(knexConfig["development"]);
+const knex = Knex(knexConfig["test"]);
 
 describe("UsersService", () => {
   let usersService: UsersService;

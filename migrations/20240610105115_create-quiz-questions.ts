@@ -10,6 +10,7 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign("question_type_id").references("quiz_question_types.id");
     table.string("question");
     table.string("image");
+    table.string("answer");
     table.timestamps(false, true);
   });
 

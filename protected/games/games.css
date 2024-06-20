@@ -208,13 +208,15 @@ nav .profile img {
 .quiz-lists {
   background-color: #b2d8fe;
   height: 100%;
-  padding: 100px 50px;
+  padding: 100px 10px;
   display: none; /* 1 */
-  grid-template-columns: repeat(auto-fill, 400px);
-  grid-gap: 30px; /* 3 */
-  justify-content: space-between; /* 4 */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 50px;
 }
 .quiz-lists .quiz-card {
+  flex: 1;
   position: relative;
   height: 200px;
   width: 400px;
@@ -230,6 +232,20 @@ nav .profile img {
   right: 20px;
   filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.272));
 }
+.quiz-lists .quiz-card .highest-score {
+  padding: 20px 20px;
+}
+.quiz-lists .quiz-card .highest-score h6 {
+  margin-bottom: 0;
+}
+.quiz-lists .quiz-card .highest-score i {
+  color: rgba(146, 146, 146, 0.886);
+  font-size: 40px;
+}
+.quiz-lists .quiz-card .highest-score i.scored {
+  color: rgb(252, 215, 67);
+  text-shadow: #fc0 0 0 20px;
+}
 .quiz-lists .quiz-card .description {
   padding: 10px 20px;
   position: absolute;
@@ -242,10 +258,10 @@ nav .profile img {
   animation: float 1s infinite alternate-reverse;
 }
 .quiz-lists .quiz1 {
-  background-color: #bfdc9a;
+  background-color: #85b547;
 }
 .quiz-lists .quiz1:hover {
-  background-color: #85b547;
+  background-color: #bfdc9a;
 }
 .quiz-lists .quiz2 {
   background-color: #ffb134;
@@ -260,10 +276,10 @@ nav .profile img {
   background-color: #5c97d1;
 }
 .quiz-lists .quiz4 {
-  background-color: #f3cc17;
+  background-color: #dd9ec1;
 }
 .quiz-lists .quiz4:hover {
-  background-color: rgb(246, 219, 96);
+  background-color: #ffc4e4;
 }
 .quiz-lists .quiz5 {
   background-color: #c94f3a;

@@ -13,5 +13,4 @@ data
 DATASET1
 test-2.ipynb
 trained_model.keras
-server2.py
 TestData

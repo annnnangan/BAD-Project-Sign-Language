@@ -30,10 +30,10 @@ async function loadQuizList() {
 
   //load quiz card
   await quizList.forEach((quiz, index) => {
-    quizContainer.innerHTML += `<a href="/games/quiz/quiz.html?quiz=${
+    quizContainer.innerHTML += `<a href="/quiz/quiz.html?quiz=${
       quiz.id
     }"><div class="quiz-card quiz${index + 1}" data-quiz="${quiz.id}">
-    <img data-quiz="${quiz.id}" src="assets/character/monster-${
+    <img data-quiz="${quiz.id}" src="../assets/character/monster-${
       monsterColor[index]
     }.png" alt="" />
 

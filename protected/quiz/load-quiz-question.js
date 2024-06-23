@@ -181,11 +181,11 @@ async function loadPage() {
 
     if (detectedCharacter === questionAnswer) {
       score++;
-      feedbackImage.src = "../assets/correct.png";
+      feedbackImage.src = "../assets/feedback-images/quiz-correct.png";
       feedbackText.innerText = "Correct!";
       feedbackNextButton.style.display = "block";
     } else {
-      feedbackImage.src = "../assets/incorrect.png";
+      feedbackImage.src = "../assets/feedback-images/quiz-incorrect.png";
       feedbackText.innerText = "Incorrect";
       feedbackNextButton.style.display = "block";
     }

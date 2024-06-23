@@ -11,7 +11,7 @@ async function loadPage() {
     preload.classList.add("preload-finish");
   }, 2000);
   const alphabetContainer = document.querySelector(".alphabet-lists");
-  const exampleModal = document.getElementById("exampleModal");
+  const learningModal = document.getElementById("learningModal");
   const allModal = document.querySelectorAll(".modal");
 
   const captureBtn = document.querySelector(".capture-btn");
@@ -51,18 +51,18 @@ async function loadPage() {
     const backButton = document.querySelector(".feedback .modal-footer button");
 
     if (currentLearningAlphabet != detectedCharacter.toLowerCase()) {
-      characterFace.src = `./assets/character/monster-sad-face.png`;
+      characterFace.src = `../assets/character/monster-sad-face.png`;
       modalTitle.innerText = "It seems wrong.";
       modalDescription.innerText = `Never Give Up and Try Again!`;
       backButton.innerText = `Try Again!`;
       backButton.removeAttribute("data-bs-dismiss");
-      backButton.setAttribute("data-bs-target", "#exampleModal");
+      backButton.setAttribute("data-bs-target", "#learningModal");
       backButton.setAttribute("data-bs-toggle", "modal");
     } else {
       await fetch(`/games/complete-list/${currentLearningAlphabet}`, {
         method: "PUT",
       });
-      characterFace.src = `./assets/character/monster-excited-face.png`;
+      characterFace.src = `../assets/character/monster-excited-face.png`;
       modalTitle.innerText = "Congratulations!";
       modalDescription.innerText = `You've got it right!`;
       backButton.innerText = `Back`;
@@ -81,7 +81,7 @@ async function loadPage() {
         origin: { x: 0, y: 0.9 },
       });
 
-      await loadAlphabet();
+      loadAlphabet();
     }
   });
 }

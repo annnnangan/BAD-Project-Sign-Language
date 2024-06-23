@@ -31,11 +31,11 @@ export async function loadAlphabet() {
   //Looping out A - Z images in games overview
   for (let i of lowerCaseLetters) {
     alphabetContainer.innerHTML += `<div class="alphabet-card" data-alphabet="${i}" data-bs-toggle="modal"
-    data-bs-target="#exampleModal" >
+    data-bs-target="#learningModal" >
       <img
       data-alphabet="${i}"
         class="alphabet"
-        src="./assets/alphabet/${i}-alphabet.png"
+        src="../assets/alphabet/${i}-alphabet.png"
         alt="${i} alphabet"
       />
       </div>`;
@@ -55,7 +55,7 @@ export async function loadAlphabet() {
     }
   }
 
-  const exampleModal = document.getElementById("exampleModal");
+  const learningModal = document.getElementById("learningModal");
   const allModal = document.querySelectorAll(".modal");
   const captureBtn = document.querySelector(".capture-btn");
   const video = document.querySelector(".web-cam");
@@ -68,8 +68,8 @@ export async function loadAlphabet() {
       startWebCam();
       console.log(event.target.dataset.alphabet);
 
-      demoImg.src = `./assets/sign-language/${event.target.dataset.alphabet}-sign.png`;
-      exampleModal.setAttribute(
+      demoImg.src = `../assets/sign-language/${event.target.dataset.alphabet}-sign.png`;
+      learningModal.setAttribute(
         "data-alphabet",
         `${event.target.dataset.alphabet}`
       );
@@ -80,7 +80,7 @@ export async function loadAlphabet() {
     });
   });
 
-  exampleModal.addEventListener("shown.bs.modal", (event) => {
+  learningModal.addEventListener("shown.bs.modal", (event) => {
     startWebCam();
   });
 

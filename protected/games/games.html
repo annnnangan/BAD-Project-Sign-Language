@@ -10,15 +10,19 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="games.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/games.css" />
   </head>
 
   <body>
     <div class="preload">
       <div class="preload-image">
-        <img src="assets/character/icon-monster-1.png" alt="" />
-        <img src="assets/character/icon-monster-2.png" alt="" />
-        <img src="assets/character/icon-monster-3.png" alt="" />
+        <img src="../assets/character/logo-monster-1.png" alt="" />
+        <img src="../assets/character/logo-monster-2.png" alt="" />
+        <img src="../assets/character/logo-monster-3.png" alt="" />
       </div>
       <div class="preload-text">
         <h5>Loading&nbsp;</h5>
@@ -28,8 +32,10 @@
       </div>
     </div>
     <nav>
-      <div class="logo"><img src="assets/logo.png" alt="" /></div>
-      <div class="profile"><img src="assets/profile-data.png" alt="" /></div>
+      <div class="logo"><img src="../assets/logo/logo.png" alt="" /></div>
+      <div class="profile">
+        <img src="../assets/profile/general-profile.png" alt="" />
+      </div>
     </nav>
 
     <div class="tabs">
@@ -49,9 +55,9 @@
     <div
       class="modal fade modal-xl"
       data-alphabet
-      id="exampleModal"
+      id="learningModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="learningModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-xl">
@@ -66,8 +72,9 @@
           </div>
 
           <div class="modal-body">
+            <i class="fa-solid fa-bookmark"></i>
             <div class="left">
-              <img src="./assets/sign-language/a-sign.png" alt="" />
+              <img src="../assets/sign-language/a-sign.png" alt="" />
             </div>
 
             <div class="right">
@@ -75,7 +82,7 @@
               <div class="capture">
                 <button
                   class="capture-btn"
-                  data-bs-target="#exampleModalToggle2"
+                  data-bs-target="#feedbackModal"
                   data-bs-toggle="modal"
                   data-alphabet
                 >
@@ -324,9 +331,9 @@
     <!-- displaying correct/wrong feedback modal  -->
     <div
       class="modal fade"
-      id="exampleModalToggle2"
+      id="feedbackModal"
       aria-hidden="true"
-      aria-labelledby="exampleModalToggleLabel2"
+      aria-labelledby="feedbackModalLabel"
       tabindex="-1"
     >
       <div class="modal-dialog modal-dialog-centered feedback">
@@ -334,7 +341,7 @@
           <div class="modal-header">
             <img
               class="character-face"
-              src="./assets/character/monster-excited-face.png"
+              src="../assets/character/monster-excited-face.png"
               alt=""
             />
 

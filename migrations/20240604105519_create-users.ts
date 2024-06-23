@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("username");
     table.string("email");
     table.string("password");
+    table.string("icon");
     table.timestamps(false, true);
   });
 

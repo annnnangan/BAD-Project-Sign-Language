@@ -23,7 +23,7 @@ async function loadPage() {
   captureBtn.addEventListener("click", async (event) => {
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
     // get image data as string
-    const imageString = canvas.toDataURL("image/jpeg");
+    const imageString = canvas.toDataURL("image/jpeg", 1.0);
 
     const currentLearningAlphabet = event.target.getAttribute("data-alphabet");
 

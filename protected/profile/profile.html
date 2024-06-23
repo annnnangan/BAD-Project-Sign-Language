@@ -3,14 +3,286 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/profile.css" />
   </head>
   <body>
-    <nav></nav>
-    <header></header>
+    <nav>
+      <div class="logo">
+        <img class="full-logo" src="../games/assets/logo.png" alt="" />
+        <img
+          class="short-logo"
+          src="../games/assets/logo_character_only.png"
+          alt=""
+        />
+      </div>
 
-    <div class="bookmark"></div>
-    <div class="ranking"></div>
-    <div class="friend"></div>
+      <a href="">
+        <div class="game-page">
+          <img src="./assets/games.png" alt="" />
+          <h4>Games</h4>
+        </div>
+      </a>
+    </nav>
+
+    <div class="user-profile">
+      <div class="left">
+        <header>
+          <div class="welcome-text">
+            <h2>Welcome Back, <span>Anna!</span></h2>
+          </div>
+          <div class="user-information">
+            <div class="left">
+              <div class="user-icon">
+                <img src="./assets/profile/blue-shirt-woman.png" alt="" />
+              </div>
+
+              <h5 class="username">@annangan1234</h5>
+            </div>
+
+            <div class="trackers">
+              <div class="tracker lesson-tracker">
+                <img src="./assets/medal.png" alt="medal" />
+                <div class="title">Lesson Finished</div>
+                <div class="number">2 / 24</div>
+              </div>
+              <div class="tracker quiz-tracker">
+                <img src="./assets/medal.png" alt="medal" />
+                <div class="title">Quiz Finished</div>
+                <div class="number">1 / 5</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="tabs">
+          <div class="tab active tab-bookmark">
+            <i class="fa-solid fa-bookmark"></i> <span>Bookmarks</span>
+          </div>
+          <div class="tab tab-friends">
+            <i class="fa-solid fa-user-group"></i><span>Friends Request</span>
+          </div>
+        </div>
+
+        <div class="tab-content">
+          <div class="bookmarks">
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/a-sign.png" alt="" />
+            </div>
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/b-sign.png" alt="" />
+            </div>
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/b-sign.png" alt="" />
+            </div>
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/b-sign.png" alt="" />
+            </div>
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/b-sign.png" alt="" />
+            </div>
+            <div class="bookmark">
+              <i class="fa-solid fa-bookmark"></i>
+              <img src="../games/assets/sign-language/b-sign.png" alt="" />
+            </div>
+          </div>
+          <div class="friends">
+            <div class="form">
+              <h4>Add Friends</h4>
+              <form id="add-friend">
+                <div class="input-control">
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="username"
+                  />
+                </div>
+                <input type="submit" value="Add Friend" />
+              </form>
+            </div>
+            <div class="requests">
+              <h4>Pending Friend Requests</h4>
+              <div class="request">
+                <div class="user-info">
+                  <div class="user-icon">
+                    <img src="./assets/profile/green-shirt-man.png" alt="" />
+                  </div>
+                  <div>
+                    <div class="name">Sam</div>
+                    <div class="username">@Sam_Chan23</div>
+                  </div>
+                </div>
+
+                <div class="buttons">
+                  <button class="accept">Accept</button>
+                  <button class="reject">Reject</button>
+                </div>
+              </div>
+              <div class="request">
+                <div class="user-info">
+                  <div class="user-icon">
+                    <img src="./assets/profile/green-shirt-man.png" alt="" />
+                  </div>
+                  <div>
+                    <div class="name">Sam</div>
+                    <div class="username">@Sam_Chan23</div>
+                  </div>
+                </div>
+
+                <div class="buttons">
+                  <button class="accept">Accept</button>
+                  <button class="reject">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking right">
+        <h3>Ranking</h3>
+        <div class="upper-list">
+          <div class="user" data-rank="1">
+            <div class="rank-user">
+              <div class="medal">
+                <img src="./assets/medal/gold-medal.png" alt="" />
+              </div>
+
+              <div class="user-icon">
+                <img src="./assets/profile/blue-shirt-woman.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Anna</p>
+                <p class="username">@annangan1234</p>
+              </div>
+
+              <div class="score">
+                <p>Score: <span>3</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="user" data-rank="2">
+            <div class="rank-user">
+              <div class="medal">
+                <img src="./assets/medal/silver-medal.png" alt="" />
+              </div>
+
+              <div class="user-icon">
+                <img src="./assets/profile/pink-shirt-woman.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Amy</p>
+                <p class="username">@amy_smile_1</p>
+              </div>
+
+              <div class="score">
+                <p>Score: <span>3</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="user" data-rank="3">
+            <div class="rank-user">
+              <div class="medal">
+                <img src="./assets/medal/bronze-medal.png" alt="" />
+              </div>
+
+              <div class="user-icon">
+                <img src="./assets/profile/purple-shirt-woman.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Mary</p>
+                <p class="username">@mary_chan234</p>
+              </div>
+
+              <div class="score">
+                <p class="score">Score: <span>4</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="down-list">
+          <div class="user" data-rank="4">
+            <div class="rank-user">
+              <h3 class="rank">4</h3>
+              <div class="user-icon">
+                <img src="./assets/profile/green-shirt-man.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Anson</p>
+                <p class="username">@anson-ma12</p>
+              </div>
+
+              <div class="score">
+                <p>Score: <span>3</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="user" data-rank="4">
+            <div class="rank-user">
+              <h3 class="rank">5</h3>
+              <div class="user-icon">
+                <img src="./assets/profile/orange-shirt-man.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Ken</p>
+                <p class="username">@kennnn</p>
+              </div>
+
+              <div class="score">
+                <p>Score: <span>2</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="user" data-rank="4">
+            <div class="rank-user">
+              <h3 class="rank">5</h3>
+              <div class="user-icon">
+                <img src="./assets/profile/orange-shirt-man.png" alt="" />
+              </div>
+            </div>
+
+            <div class="rank-info">
+              <div class="user-info">
+                <p class="name">Ken</p>
+                <p class="username">@kennnn</p>
+              </div>
+
+              <div class="score">
+                <p>Score: <span>2</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="profile.js"></script>
   </body>
 </html>

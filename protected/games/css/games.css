@@ -303,6 +303,16 @@ nav .profile img {
   justify-content: center;
   align-items: center;
   padding-bottom: 50px;
+  position: relative;
+}
+.modal-body .fa-bookmark {
+  position: absolute;
+  font-size: 50px;
+  top: 2px;
+  left: 30px;
+}
+.modal-body .fa-bookmark.saved {
+  color: #f3cc17;
 }
 .modal-body .left img {
   width: 380px;

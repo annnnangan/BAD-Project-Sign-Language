@@ -91,7 +91,7 @@ header .user-icon img {
   transform: translateY(10px);
 }
 header .user-icon:hover img {
-  transform: scale(1.2);
+  transform: scale(1.3);
   transition: all 2s;
 }
 header .trackers {
@@ -151,19 +151,30 @@ header .trackers img {
   height: 150px;
   background-color: #109795;
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 35px;
   position: relative;
   padding: 20px;
   border-radius: 20px;
+  transition: all 1s;
+}
+.bookmarks .bookmark:hover {
+  transform: scale(1.1);
+  transition: all 1s;
+}
+.bookmarks .bookmark:hover img {
+  transform: scale(1.5);
+  transition: all 1s;
 }
 .bookmarks .bookmark img {
   width: 150px;
+  transition: all 1s;
 }
 .bookmarks .bookmark i {
   position: absolute;
-  font-size: 20px;
+  font-size: 25px;
   color: white;
   cursor: pointer;
+  z-index: 2;
 }
 
 .ranking {

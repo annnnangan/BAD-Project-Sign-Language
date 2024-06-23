@@ -24,4 +24,37 @@ export class UsersController {
       res.status(401).json({ message: "error" });
     }
   };
+
+  getBookmarks = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+
+      const result = await this.usersService.getBookmarks(userID);
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
+  removeBookmark = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const signLanguage = req.params.signLanguage;
+      await this.usersService.removeBookmark(userID, signLanguage);
+      res.status(200).json({ message: "remove successfully" });
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
+  insertBookmark = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const signLanguage = req.body.signLanguage;
+      await this.usersService.insertBookmark(userID, signLanguage);
+      res.status(200).json({ message: "remove successfully" });
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
 }

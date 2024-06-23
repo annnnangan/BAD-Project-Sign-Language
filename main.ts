@@ -55,6 +55,9 @@ app.post("/upload", async (req, res) => {
     base64Image,
     { encoding: "base64" },
     function (err) {
+      if (err) {
+        console.error("Error writing file:", err);
+      }
       console.log("File created");
     }
   );
@@ -70,18 +73,18 @@ app.post("/upload", async (req, res) => {
   const output = await result.json();
 
   //Delete the image after prediction
-  // fs.unlink(`snapshot/${timestamp}.png`, (err) => {
-  //   if (err) {
-  //     throw err;
-  //   }
+  fs.unlink(`snapshot/${timestamp}.png`, (err) => {
+    if (err) {
+      throw err;
+    }
 
-  //   console.log("Delete File successfully.");
-  // });
+    console.log("Delete File successfully.");
+  });
   console.log(output);
   res.json(output);
 });
 
-app.use("/login", getUsersRoutes());
+app.use("/users", getUsersRoutes());
 app.use("/games", isLoggedIn, getGamesRoutes());
 
 app.use(express.static("public"));

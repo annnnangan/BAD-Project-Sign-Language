@@ -15,7 +15,6 @@ export class GamesService {
   }
 
   async completeLanguage(userID: number, signLanguage: string) {
-    console.log(`signLanguage: ${signLanguage}`);
     //get sign language ID based on sign language
     const signLanguageID = (
       await this.knex
@@ -30,8 +29,6 @@ export class GamesService {
       .from("complete_learning_list")
       .where("user_id", userID)
       .andWhere("sign_language_id", signLanguageID);
-
-    console.log(`completedList: ${completedList}`);
 
     //if the sign language id doesn't exist for that user, insert a new row
     if (completedList.length === 0) {

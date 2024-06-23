@@ -10,7 +10,7 @@ document
       password: form.password.value,
     };
 
-    const res = await fetch("/login", {
+    const res = await fetch("/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

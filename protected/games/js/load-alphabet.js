@@ -61,28 +61,71 @@ export async function loadAlphabet() {
   const video = document.querySelector(".web-cam");
   const canvas = document.querySelector(".canvas");
   const demoImg = document.querySelector(".left img");
+  const bookmarkButton = document.querySelector(".fa-bookmark");
+  let isBookmark;
 
   alphabetCard.forEach((i) => {
-    i.addEventListener("click", (event) => {
-      console.log("clicked");
+    i.addEventListener("click", async (event) => {
+      isBookmark = false;
+      controlBookmarkStyle(isBookmark);
       startWebCam();
-      console.log(event.target.dataset.alphabet);
+      const signLanguage = event.target.dataset.alphabet;
+      demoImg.src = `../assets/sign-language/${signLanguage}-sign.png`;
+      learningModal.setAttribute("data-alphabet", `${signLanguage}`);
 
-      demoImg.src = `../assets/sign-language/${event.target.dataset.alphabet}-sign.png`;
-      learningModal.setAttribute(
-        "data-alphabet",
-        `${event.target.dataset.alphabet}`
-      );
-      captureBtn.setAttribute(
-        "data-alphabet",
-        `${event.target.dataset.alphabet}`
-      );
+      captureBtn.setAttribute("data-alphabet", `${signLanguage}`);
+
+      const bookmarksRes = await fetch(`/users/bookmarks`);
+      const bookmarkList = await bookmarksRes.json();
+      console.log(bookmarkList);
+
+      for (let i of bookmarkList) {
+        if (i.sign_language === signLanguage) {
+          isBookmark = true;
+          console.log(isBookmark);
+          controlBookmarkStyle(isBookmark);
+        } else {
+          controlBookmarkStyle(isBookmark);
+        }
+      }
     });
   });
 
-  learningModal.addEventListener("shown.bs.modal", (event) => {
-    startWebCam();
+  bookmarkButton.addEventListener("click", async (event) => {
+    const signLanguage = event.target
+      .closest("[data-alphabet]")
+      .getAttribute("data-alphabet");
+
+    if (isBookmark) {
+      isBookmark = false;
+      await fetch(`/users/bookmarks/${signLanguage}`, {
+        method: "DELETE",
+      });
+    } else {
+      isBookmark = true;
+      await fetch("/users/bookmarks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ signLanguage: signLanguage }),
+      });
+    }
+
+    controlBookmarkStyle(isBookmark);
   });
+
+  function controlBookmarkStyle(isBookmark) {
+    if (isBookmark) {
+      bookmarkButton.classList.remove("fa-regular");
+      bookmarkButton.classList.add("fa-solid");
+      bookmarkButton.classList.add("saved");
+    } else {
+      bookmarkButton.classList.add("fa-regular");
+      bookmarkButton.classList.remove("fa-solid");
+      bookmarkButton.classList.remove("saved");
+    }
+  }
 
   allModal.forEach((i) => {
     i.addEventListener("hidden.bs.modal", (event) => {

@@ -24,7 +24,6 @@ export async function loadBookmarks() {
 
   removeBookmarkButtons.forEach((bookmark, index) => {
     bookmark.addEventListener("click", async (e) => {
-      console.log("click");
       const signLanguage = e.target
         .closest("[data-alphabet]")
         .getAttribute("data-alphabet");

@@ -179,8 +179,7 @@ header .trackers img {
 
 .ranking {
   background: rgba(252, 253, 253, 0.688);
-}
-.ranking.right {
+  width: 32rem;
   border: 2px solid black;
   height: 100%;
   padding: 5px 20px 5px 40px;
@@ -219,6 +218,7 @@ header .trackers img {
 .ranking .upper-list {
   display: flex;
   gap: 50px;
+  justify-content: center;
 }
 .ranking .upper-list .user {
   display: flex;
@@ -266,6 +266,7 @@ header .trackers img {
 }
 .ranking .upper-list [data-rank="3"] .medal img {
   width: 80px;
+  transform: translateX(10px);
 }
 .ranking .down-list {
   margin-top: 20px;
@@ -317,16 +318,19 @@ header .trackers img {
   background-color: #f3cc17;
 }
 
-.requests .request {
+.received-requests .request,
+.sent-requests .request {
   background: rgba(252, 253, 253, 0.688);
   display: flex;
   margin-bottom: 5px;
   gap: 30px;
   border: 1px solid rgba(128, 128, 128, 0.4);
   padding: 10px 20px;
-  width: 85%;
+  max-width: 85%;
+  flex-wrap: wrap;
 }
-.requests .request .user-icon {
+.received-requests .request .user-icon,
+.sent-requests .request .user-icon {
   height: 80px;
   width: 80px;
   border-radius: 50%;
@@ -334,44 +338,71 @@ header .trackers img {
   border: 2px solid black;
   overflow: hidden;
 }
-.requests .request .user-icon img {
+.received-requests .request .user-icon img,
+.sent-requests .request .user-icon img {
   width: 80px;
 }
-.requests .request .user-info {
+.received-requests .request .user-info,
+.sent-requests .request .user-info {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.requests .request .buttons {
+.received-requests .request .buttons,
+.sent-requests .request .buttons {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
-.requests .request .buttons button {
+.received-requests .request .buttons button,
+.sent-requests .request .buttons button {
   font-family: "Play", sans-serif;
   padding: 5px 20px;
   border-radius: 10px;
   border: 0px;
   cursor: pointer;
 }
-.requests .request .buttons button.accept {
+.received-requests .request .buttons button.accept,
+.sent-requests .request .buttons button.accept {
   margin-right: 8px;
   background-color: rgb(51, 215, 161);
   transition: all 1s;
 }
-.requests .request .buttons button.accept:hover {
+.received-requests .request .buttons button.accept:hover,
+.sent-requests .request .buttons button.accept:hover {
   background-color: rgb(41, 168, 125);
   transition: all 1s;
 }
-.requests .request .buttons button.reject {
+.received-requests .request .buttons button.reject,
+.sent-requests .request .buttons button.reject {
   background-color: rgb(255, 173, 173);
   transition: all 1s;
 }
-.requests .request .buttons button.reject:hover {
+.received-requests .request .buttons button.reject:hover,
+.sent-requests .request .buttons button.reject:hover {
   background-color: rgb(248, 121, 121);
   transition: all 1s;
+}
+
+.sent-requests .request {
+  display: flex;
+  align-items: center;
+}
+.sent-requests .status {
+  margin-left: 10px;
+}
+.sent-requests .status .pending {
+  background-color: rgba(184, 184, 184, 0.5215686275);
+}
+.sent-requests .status .rejected {
+  background-color: rgba(254, 133, 133, 0.5215686275);
+}
+.sent-requests .status p {
+  margin: 0;
+  padding: 5px 20px;
+  border-radius: 10px;
 }
 
 @media (max-width: 1016px) {
@@ -391,19 +422,18 @@ header .trackers img {
   }
   .user-profile {
     display: block;
+    margin: 5px 40px;
+    padding: 0;
   }
-  .ranking.right {
+  .ranking {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    width: 500px;
-    padding: 5px 5px 5px 100px;
   }
 }
 @media (max-width: 725px) {
-  .ranking.right {
-    padding: 5px 0px 5px 40px;
-    width: 360px;
+  .ranking {
+    width: 23rem;
   }
   .ranking .upper-list {
     transform: translateX(-30px);
@@ -418,8 +448,12 @@ header .trackers img {
   .ranking .upper-list [data-rank="2"] {
     order: 1;
   }
-  .ranking .upper-list [data-rank="2"] {
+  .ranking .upper-list [data-rank="3"] {
     order: 2;
+  }
+  .ranking .upper-list [data-rank="3"] .medal img {
+    width: 80px;
+    transform: translateX(0px);
   }
   .ranking .upper-list .user {
     display: flex;
@@ -453,11 +487,11 @@ header .trackers img {
   }
 }
 @media (max-width: 503px) {
-  .ranking.right {
-    width: 230px;
-  }
   .rank-info {
     flex-direction: column;
+  }
+  .ranking {
+    padding: 5px 0px 5px 40px;
   }
 }
 @media (max-width: 472px) {
@@ -465,8 +499,15 @@ header .trackers img {
     flex-wrap: wrap;
     gap: 20px;
   }
+  .user-information .trackers {
+    margin-left: 20px;
+  }
   .tabs span {
     display: none;
+  }
+  .ranking {
+    width: 20rem;
+    padding: 5px 0px 5px 30px;
   }
 }
 @media (max-width: 437px) {
@@ -484,10 +525,24 @@ header .trackers img {
     font-size: 10px;
     padding: 5px 15px;
   }
+  .user-profile {
+    margin: 5px 30px;
+  }
+  .ranking {
+    width: 15rem;
+  }
+}
+@media (max-width: 310px) {
+  .ranking {
+    transform: scale(0.8) translateX(-20px);
+  }
 }
 @media (max-width: 288px) {
   .tabs {
     flex-wrap: wrap;
+  }
+  .ranking {
+    transform: scale(0.6) translateX(-90px) translateY(-190px);
   }
 }
 @media (max-width: 221px) {

@@ -214,11 +214,11 @@ header {
 .ranking {
   // background-color: rgba(202, 219, 255, 0.341);
   background: rgba(252, 253, 253, 0.688);
-  &.right {
-    border: 2px solid black;
-    height: 100%;
-    padding: 5px 20px 5px 40px;
-  }
+
+  width: 32rem;
+  border: 2px solid black;
+  height: 100%;
+  padding: 5px 20px 5px 40px;
 
   h3 {
     font-size: 25px;
@@ -261,6 +261,7 @@ header {
   .upper-list {
     display: flex;
     gap: 50px;
+    justify-content: center;
 
     .user {
       display: flex;
@@ -314,6 +315,7 @@ header {
       }
       .medal img {
         width: 80px;
+        transform: translateX(10px);
       }
     }
   }
@@ -374,7 +376,8 @@ header {
   }
 }
 
-.requests {
+.received-requests,
+.sent-requests {
   .request {
     background: rgba(252, 253, 253, 0.688);
     display: flex;
@@ -382,7 +385,8 @@ header {
     gap: 30px;
     border: 1px solid rgba(128, 128, 128, 0.4);
     padding: 10px 20px;
-    width: 85%;
+    max-width: 85%;
+    flex-wrap: wrap;
 
     .user-icon {
       height: 80px;
@@ -442,6 +446,29 @@ header {
   }
 }
 
+.sent-requests {
+  .request {
+    display: flex;
+    align-items: center;
+  }
+  .status {
+    margin-left: 10px;
+    .pending {
+      background-color: #b8b8b885;
+    }
+
+    .rejected {
+      background-color: #fe858585;
+    }
+
+    p {
+      margin: 0;
+      padding: 5px 20px;
+      border-radius: 10px;
+    }
+  }
+}
+
 @media (max-width: 1016px) {
   .user-information {
     flex-direction: column;
@@ -461,24 +488,20 @@ header {
 
   .user-profile {
     display: block;
+    margin: 5px 40px;
+    padding: 0;
   }
 
-  .ranking.right {
+  .ranking {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    width: 500px;
-    padding: 5px 5px 5px 100px;
   }
 }
 
 @media (max-width: 725px) {
   .ranking {
-    &.right {
-      padding: 5px 0px 5px 40px;
-      width: 360px;
-    }
-
+    width: 23rem;
     .upper-list {
       transform: translateX(-30px);
       display: flex;
@@ -492,8 +515,13 @@ header {
       [data-rank="2"] {
         order: 1;
       }
-      [data-rank="2"] {
+      [data-rank="3"] {
         order: 2;
+
+        .medal img {
+          width: 80px;
+          transform: translateX(0px);
+        }
       }
 
       .user {
@@ -537,13 +565,11 @@ header {
 }
 
 @media (max-width: 503px) {
-  .ranking {
-    &.right {
-      width: 230px;
-    }
-  }
   .rank-info {
     flex-direction: column;
+  }
+  .ranking {
+    padding: 5px 0px 5px 40px;
   }
 }
 
@@ -553,8 +579,17 @@ header {
     gap: 20px;
   }
 
+  .user-information .trackers {
+    margin-left: 20px;
+  }
+
   .tabs span {
     display: none;
+  }
+
+  .ranking {
+    width: 20rem;
+    padding: 5px 0px 5px 30px;
   }
 }
 
@@ -578,11 +613,29 @@ header {
       padding: 5px 15px;
     }
   }
+
+  .user-profile {
+    margin: 5px 30px;
+  }
+
+  .ranking {
+    width: 15rem;
+  }
+}
+
+@media (max-width: 310px) {
+  .ranking {
+    transform: scale(0.8) translateX(-20px);
+  }
 }
 
 @media (max-width: 288px) {
   .tabs {
     flex-wrap: wrap;
+  }
+
+  .ranking {
+    transform: scale(0.6) translateX(-90px) translateY(-190px);
   }
 }
 

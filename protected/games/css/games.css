@@ -154,10 +154,15 @@ nav .profile img {
   align-items: center;
   box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
   padding: 0;
+  transition: all 1s;
 }
 .alphabet-lists .alphabet-card:hover {
   cursor: pointer;
   animation: float 1s infinite alternate-reverse;
+}
+.alphabet-lists .alphabet-card:hover img {
+  transition: all 1s;
+  transform: scale(1.2);
 }
 .alphabet-lists [data-alphabet=a],
 .alphabet-lists [data-alphabet=h],

@@ -13,6 +13,7 @@ export const getUsersRoutes = () => {
     usersController.removeBookmark
   );
   usersRoutes.post("/bookmarks", isLoggedInAPI, usersController.insertBookmark);
+  usersRoutes.get("/rank", isLoggedInAPI, usersController.getRank);
 
   return usersRoutes;
 };

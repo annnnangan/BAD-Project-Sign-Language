@@ -55,5 +55,12 @@ export async function seed(knex: Knex): Promise<void> {
       password: "$2a$10$ZjJdxQ2xQIiKGjiBeXoUzuogZa/e9okqd0pzFxEPHUhpg1aEaV3JW",
       icon: "purple-shirt-woman.png",
     },
+    {
+      nickname: "jane",
+      username: "JaneDoe",
+      email: "Janedoe2@gmail.com",
+      password: "$2a$10$ZjJdxQ2xQIiKGjiBeXoUzuogZa/e9okqd0pzFxEPHUhpg1aEaV3JW",
+      icon: "pink-shirt-woman.png",
+    },
   ]);
 }

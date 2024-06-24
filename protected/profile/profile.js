@@ -1,6 +1,7 @@
 import { loadBookmarks } from "./js/load-bookmarks.js";
+import { loadRank } from "./js/load-rank.js";
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   const bookmarksTab = document.querySelector(".tab-bookmark");
   const friendsTab = document.querySelector(".tab-friends");
   const bookmarksContainer = document.querySelector(".bookmarks");
@@ -8,6 +9,7 @@ window.addEventListener("load", () => {
 
   let bookmarksTabActive = true;
   loadBookmarks();
+  loadRank();
 
   bookmarksTab.addEventListener("click", async () => {
     bookmarksTabActive = true;

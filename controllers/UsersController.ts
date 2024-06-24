@@ -57,4 +57,23 @@ export class UsersController {
       res.status(500).json({ error: e });
     }
   };
+
+  getRank = async (req: Request, res: Response) => {
+    const userID: number = req.session.user_id as number;
+    const userList = await this.usersService.getFriendList(userID);
+    console.log(userList);
+    let uniqueUserList = new Set<number>();
+
+    for (let i in userList) {
+      uniqueUserList.add(userList[i].requester_id);
+      uniqueUserList.add(userList[i].requestee_id);
+    }
+
+    console.log(uniqueUserList);
+
+    const result = await this.usersService.getRank(uniqueUserList);
+
+    console.log(result);
+    res.json(result);
+  };
 }

@@ -194,10 +194,16 @@ nav {
     align-items: center;
     box-shadow: 10px 15px 11px -8px rgba(0, 0, 0, 0.24);
     padding: 0;
+    transition: all 1s;
 
     &:hover {
       cursor: pointer;
       animation: float 1s infinite alternate-reverse;
+    }
+
+    &:hover img {
+      transition: all 1s;
+      transform: scale(1.2);
     }
   }
 

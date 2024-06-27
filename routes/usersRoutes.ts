@@ -6,6 +6,17 @@ export const getUsersRoutes = () => {
   const usersRoutes = express.Router();
 
   usersRoutes.post("/login", usersController.getUsersLogin);
+  usersRoutes.get("/profile", isLoggedInAPI, usersController.getUserProfile);
+  usersRoutes.get(
+    "/complete-lesson-count",
+    isLoggedInAPI,
+    usersController.getUserCompleteLesson
+  );
+  usersRoutes.get(
+    "/complete-quiz-count",
+    isLoggedInAPI,
+    usersController.getUserCompleteQuiz
+  );
   usersRoutes.get("/bookmarks", isLoggedInAPI, usersController.getBookmarks);
   usersRoutes.delete(
     "/bookmarks/:signLanguage",

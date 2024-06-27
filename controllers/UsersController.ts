@@ -25,6 +25,36 @@ export class UsersController {
     }
   };
 
+  getUserProfile = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const result = await this.usersService.getUserProfile(userID);
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
+  getUserCompleteLesson = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const result = await this.usersService.getUserCompleteLesson(userID);
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
+  getUserCompleteQuiz = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const result = await this.usersService.getUserCompleteQuiz(userID);
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
   getBookmarks = async (req: Request, res: Response) => {
     try {
       const userID: number = req.session.user_id as number;

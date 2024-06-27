@@ -2,6 +2,9 @@ import { Knex } from "knex";
 
 export class GamesService {
   constructor(private knex: Knex) {}
+  async getLearningList() {
+    return await this.knex.select("*").from("sign_languages");
+  }
   async getCompleteLanguage(userID: number) {
     return await this.knex
       .select("sign_language")

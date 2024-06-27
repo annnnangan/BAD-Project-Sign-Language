@@ -3,7 +3,8 @@ import { gamesController } from "../main";
 
 export const getGamesRoutes = () => {
   const gamesRoutes = express.Router();
-  gamesRoutes.get("/learning-list", gamesController.getCompleteList);
+  gamesRoutes.get("/learning-list", gamesController.getLearningList);
+  gamesRoutes.get("/complete-learning-list", gamesController.getCompleteList);
   gamesRoutes.put(
     "/complete-list/:index",
     gamesController.updateCompleteLanguage

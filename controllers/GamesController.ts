@@ -4,6 +4,11 @@ import { GamesService } from "../services/GamesService";
 export class GamesController {
   constructor(private gamesService: GamesService) {}
 
+  getLearningList = async (req: Request, res: Response) => {
+    const result = await this.gamesService.getLearningList();
+    res.status(200).json(result);
+  };
+
   getCompleteList = async (req: Request, res: Response) => {
     const userID = req.session.user_id as number;
     const result = await this.gamesService.getCompleteLanguage(userID);

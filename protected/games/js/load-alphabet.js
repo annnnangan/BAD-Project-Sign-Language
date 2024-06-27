@@ -42,7 +42,7 @@ export async function loadAlphabet() {
   }
   const alphabetCard = document.querySelectorAll("div.alphabet-card");
 
-  const completeListRes = await fetch(`/games/learning-list`);
+  const completeListRes = await fetch(`/games/complete-learning-list`);
   const completeList = await completeListRes.json();
 
   for (let i of alphabetCard) {

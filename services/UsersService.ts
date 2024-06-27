@@ -6,6 +6,31 @@ export class UsersService {
     return await this.knex.select("*").from("users").where("email", email);
   }
 
+  async getUserProfile(userID: number) {
+    return await this.knex
+      .select("nickname", "username", "icon")
+      .from("users")
+      .where("id", userID);
+  }
+
+  async getUserCompleteLesson(userID: number) {
+    return await this.knex
+      .select("user_id")
+      .count({ total_complete_lesson: "sign_language_id" })
+      .groupBy("user_id")
+      .from("complete_learning_list")
+      .where("user_id", userID);
+  }
+
+  async getUserCompleteQuiz(userID: number) {
+    return await this.knex
+      .select("user_id")
+      .groupBy("user_id")
+      .count({ total_complete_quiz: "quiz_id" })
+      .from("quiz_scores")
+      .where("user_id", userID);
+  }
+
   async getBookmarks(userID: number) {
     return await this.knex
       .select("bookmarks.sign_language_id", "sign_languages.sign_language")

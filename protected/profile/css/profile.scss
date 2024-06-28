@@ -123,6 +123,7 @@ header {
     gap: 40px;
     flex-wrap: wrap;
     margin-left: 70px;
+    margin-right: 20px;
 
     .tracker {
       max-width: 130px;
@@ -145,11 +146,12 @@ header {
 
 .tabs {
   margin-top: 40px;
+  margin-right: 40px;
   display: flex;
   gap: 20px;
-  cursor: pointer;
 
   .tab {
+    cursor: pointer;
     padding: 7px 20px;
     border-radius: 20px;
     background-color: $colorInactive;
@@ -350,12 +352,16 @@ header {
   }
 }
 
-.friends {
+.friends-request {
   display: none;
+  margin-right: 50px;
   form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
     gap: 10px;
 
     input[type="text"] {
@@ -367,6 +373,7 @@ header {
     }
 
     input[type="submit"] {
+      height: 30px;
       font-family: "Play", sans-serif;
       padding: 4px 13px;
       border-radius: 20px;
@@ -376,11 +383,25 @@ header {
   }
 }
 
+.input-control .message {
+  display: none;
+  font-size: 12px;
+  height: 12px;
+  margin-top: 10px;
+  &.error {
+    color: #ff3860;
+  }
+  &.success {
+    color: rgb(51, 215, 161);
+  }
+}
+
 .received-requests,
 .sent-requests {
   .request {
     background: rgba(252, 253, 253, 0.688);
     display: flex;
+    justify-content: space-between;
     margin-bottom: 5px;
     gap: 30px;
     border: 1px solid rgba(128, 128, 128, 0.4);
@@ -453,13 +474,6 @@ header {
   }
   .status {
     margin-left: 10px;
-    .pending {
-      background-color: #b8b8b885;
-    }
-
-    .rejected {
-      background-color: #fe858585;
-    }
 
     p {
       margin: 0;
@@ -500,6 +514,9 @@ header {
 }
 
 @media (max-width: 725px) {
+  .friends-request {
+    margin-right: 0px;
+  }
   .ranking {
     width: 23rem;
     .upper-list {

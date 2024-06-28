@@ -100,6 +100,7 @@ header .trackers {
   gap: 40px;
   flex-wrap: wrap;
   margin-left: 70px;
+  margin-right: 20px;
 }
 header .trackers .tracker {
   max-width: 130px;
@@ -119,11 +120,12 @@ header .trackers img {
 
 .tabs {
   margin-top: 40px;
+  margin-right: 40px;
   display: flex;
   gap: 20px;
-  cursor: pointer;
 }
 .tabs .tab {
+  cursor: pointer;
   padding: 7px 20px;
   border-radius: 20px;
   background-color: #fbf5f2;
@@ -294,23 +296,27 @@ header .trackers img {
   text-align: left;
 }
 
-.friends {
+.friends-request {
   display: none;
+  margin-right: 50px;
 }
-.friends form {
+.friends-request form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 10px;
 }
-.friends form input[type=text] {
+.friends-request form input[type=text] {
   font-family: "Play", sans-serif;
   padding: 7px 10px;
   width: 300px;
   border-radius: 10px;
   border: 1px solid black;
 }
-.friends form input[type=submit] {
+.friends-request form input[type=submit] {
+  height: 30px;
   font-family: "Play", sans-serif;
   padding: 4px 13px;
   border-radius: 20px;
@@ -318,10 +324,24 @@ header .trackers img {
   background-color: #f3cc17;
 }
 
+.input-control .message {
+  display: none;
+  font-size: 12px;
+  height: 12px;
+  margin-top: 10px;
+}
+.input-control .message.error {
+  color: #ff3860;
+}
+.input-control .message.success {
+  color: rgb(51, 215, 161);
+}
+
 .received-requests .request,
 .sent-requests .request {
   background: rgba(252, 253, 253, 0.688);
   display: flex;
+  justify-content: space-between;
   margin-bottom: 5px;
   gap: 30px;
   border: 1px solid rgba(128, 128, 128, 0.4);
@@ -393,12 +413,6 @@ header .trackers img {
 .sent-requests .status {
   margin-left: 10px;
 }
-.sent-requests .status .pending {
-  background-color: rgba(184, 184, 184, 0.5215686275);
-}
-.sent-requests .status .rejected {
-  background-color: rgba(254, 133, 133, 0.5215686275);
-}
 .sent-requests .status p {
   margin: 0;
   padding: 5px 20px;
@@ -432,6 +446,9 @@ header .trackers img {
   }
 }
 @media (max-width: 725px) {
+  .friends-request {
+    margin-right: 0px;
+  }
   .ranking {
     width: 23rem;
   }

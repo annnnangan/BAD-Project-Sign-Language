@@ -105,4 +105,135 @@ export class UsersService {
       .orderBy("total_score", "desc")
       .orderBy("latest_timestamp", "asc");
   }
+
+  async getReceivedFriendRequests(userID: number) {
+    return await this.knex
+      .select("requester_id", "users.nickname", "users.username", "users.icon")
+      .from("friends")
+      .innerJoin("users", "friends.requester_id", "users.id")
+      .where("requestee_id", userID)
+      .andWhere("status", "Pending");
+  }
+
+  async getSentFriendRequests(userID: number) {
+    return await this.knex
+      .select(
+        "requestee_id",
+        "status",
+        "users.nickname",
+        "users.username",
+        "users.icon"
+      )
+      .from("friends")
+      .innerJoin("users", "friends.requestee_id", "users.id")
+      .where("requester_id", userID);
+  }
+
+  async addNewFriends(userID: number, userName: string) {
+    const requesteeID = (
+      await this.knex.select("id").from("users").where("username", userName)
+    )[0]?.id;
+
+    if (requesteeID) {
+      if (requesteeID === userID) {
+        return {
+          status: "error",
+          message: `You cannot add yourself as friend.`,
+        };
+      }
+
+      const isFriend = (
+        await this.knex
+          .select("requester_id", "requestee_id", "status")
+          .from("friends")
+          .where(function () {
+            this.where({
+              requester_id: userID,
+              requestee_id: requesteeID,
+            }).orWhere({
+              requester_id: requesteeID,
+              requestee_id: userID,
+            });
+          })
+      )[0];
+
+      if (isFriend.status === "Accept") {
+        return {
+          status: "error",
+          message: `${userName} are your friend already`,
+        };
+      } else if (
+        isFriend.status === "Pending" &&
+        isFriend.requester_id === userID &&
+        isFriend.requestee_id === requesteeID
+      ) {
+        return {
+          status: "error",
+          message: `Friend request has sent before and is pending ${userName} to accept.`,
+        };
+      } else if (
+        isFriend.status === "Pending" &&
+        isFriend.requester_id === requesteeID &&
+        isFriend.requestee_id === userID
+      ) {
+        return {
+          status: "error",
+          message: "Friend request is pending you to accept.",
+        };
+      } else if (
+        //You sent request to others but other reject you. In this case, you could send again the request.
+        isFriend.status === "Reject" &&
+        isFriend.requester_id === userID &&
+        isFriend.requestee_id === requesteeID
+      ) {
+        await this.knex("friends")
+          .update("status", "Pending")
+          .where("requester_id", userID)
+          .andWhere("requestee_id", requesteeID);
+
+        return {
+          status: "success",
+          message: `Your friend request has sent to ${userName}.`,
+        };
+      } else if (
+        //someone sent request to me and I rejected it -> I could still send a new request to that user
+        isFriend.status === "Reject" &&
+        isFriend.requester_id === requesteeID &&
+        isFriend.requestee_id === userID
+      ) {
+        await this.knex("friends")
+          .where("requester_id", requesteeID)
+          .andWhere("requestee_id", userID)
+          .andWhere("status", "Reject")
+          .del();
+
+        await this.knex
+          .insert({
+            requester_id: userID,
+            requestee_id: requesteeID,
+            status: "Pending",
+          })
+          .into("friends");
+
+        return {
+          status: "success",
+          message: `Your friend request has sent to ${userName}.`,
+        };
+      } else {
+        await this.knex
+          .insert({
+            requester_id: userID,
+            requestee_id: requesteeID,
+            status: "Pending",
+          })
+          .into("friends");
+        return {
+          status: "success",
+          message: `Your friend request has sent to ${userName}.`,
+        };
+      }
+    } else {
+      return { status: "error", message: "User does not exist." };
+    }
+  }
 }

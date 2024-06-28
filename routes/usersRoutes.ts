@@ -25,6 +25,18 @@ export const getUsersRoutes = () => {
   );
   usersRoutes.post("/bookmarks", isLoggedInAPI, usersController.insertBookmark);
   usersRoutes.get("/rank", isLoggedInAPI, usersController.getRank);
+  usersRoutes.get(
+    "/received-friend-requests",
+    isLoggedInAPI,
+    usersController.getReceivedFriendRequests
+  );
+  usersRoutes.get(
+    "/sent-friend-requests",
+    isLoggedInAPI,
+    usersController.getSentFriendRequests
+  );
+
+  usersRoutes.post("/add-friend", isLoggedInAPI, usersController.addNewFriends);
 
   return usersRoutes;
 };

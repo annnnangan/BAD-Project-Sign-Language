@@ -55,7 +55,7 @@ export async function loadRank() {
 
             <div class="rank-info">
               <div class="user-info">
-                <p class="name">${rank[i].username}</p>
+                <p class="name">${rank[i].nickname}</p>
                 <p class="username">@${rank[i].username}</p>
               </div>
 

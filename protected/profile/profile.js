@@ -1,12 +1,14 @@
 import { loadBookmarks } from "./js/load-bookmarks.js";
 import { loadRank } from "./js/load-rank.js";
 import { loadUserProfile } from "./js/load-user-profile.js";
+import { loadFriendRequests } from "./js/load-friend-requests.js";
+import "./js/add-friends.js";
 
 window.addEventListener("load", async () => {
   const bookmarksTab = document.querySelector(".tab-bookmark");
-  const friendsTab = document.querySelector(".tab-friends");
+  const friendsTab = document.querySelector(".tab-friends-request");
   const bookmarksContainer = document.querySelector(".bookmarks");
-  const friendsContent = document.querySelector(".friends");
+  const friendsContent = document.querySelector(".friends-request");
 
   let bookmarksTabActive = true;
   loadUserProfile();
@@ -22,6 +24,7 @@ window.addEventListener("load", async () => {
   friendsTab.addEventListener("click", () => {
     bookmarksTabActive = false;
     activeTab();
+    loadFriendRequests();
   });
 
   function activeTab() {

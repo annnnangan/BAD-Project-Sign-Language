@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+* {
+  box-sizing: content-box;
+}
+
+*:before,
+*:after {
+  box-sizing: content-box;
+}
+
 html {
   width: 100%;
 }
@@ -36,13 +45,16 @@ nav img.short-logo {
 nav .game-page {
   display: flex;
   margin-right: 20px;
+  justify-content: center;
+  align-items: center;
 }
 nav .game-page img {
   width: 75px;
   transform: translateX(30px);
 }
 nav .game-page h4 {
-  padding: 10px 30px;
+  font-size: 15px;
+  padding: 5px 30px;
   background-color: #05273d;
   border-radius: 20px;
   transition: all 1s;
@@ -528,6 +540,10 @@ header .trackers img {
   }
 }
 @media (max-width: 437px) {
+  nav {
+    padding: 10px;
+    align-items: center;
+  }
   nav img.full-logo {
     display: none;
   }

@@ -6,6 +6,8 @@ export const getUsersRoutes = () => {
   const usersRoutes = express.Router();
 
   usersRoutes.post("/login", usersController.getUsersLogin);
+  usersRoutes.get("/icons", usersController.getIcons);
+  usersRoutes.post("/register", usersController.register);
   usersRoutes.get("/profile", isLoggedInAPI, usersController.getUserProfile);
   usersRoutes.get(
     "/complete-lesson-count",

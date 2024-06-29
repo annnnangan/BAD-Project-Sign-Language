@@ -6,6 +6,7 @@ export async function loadUserProfile() {
   const quizCountRes = await fetch(`/games/quiz-list`);
 
   const userProfile = await profileRes.json();
+
   const completeLessonCount = await completeLessonCountRes.json();
   const completeQuizCount = await completeQuizCountRes.json();
   const lessonCount = await lessonCountRes.json();

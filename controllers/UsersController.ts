@@ -25,10 +25,40 @@ export class UsersController {
     }
   };
 
+  getIcons = async (req: Request, res: Response) => {
+    try {
+      const result = await this.usersService.getIcons();
+      res.status(200).json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
+  register = async (req: Request, res: Response) => {
+    try {
+      const result = await this.usersService.register(req.body);
+
+      console.log(result);
+
+      if (result.status === "success") {
+        if (result.users) {
+          req.session.user = result.users.username;
+          req.session.user_id = result.users.userID;
+        }
+      }
+
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  };
+
   getUserProfile = async (req: Request, res: Response) => {
     try {
       const userID: number = req.session.user_id as number;
+      console.log("session id", userID);
       const result = await this.usersService.getUserProfile(userID);
+      console.log("profile result", result);
       res.status(200).json(result);
     } catch (e) {
       res.status(500).json({ error: e });

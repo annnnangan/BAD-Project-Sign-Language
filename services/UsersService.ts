@@ -1,4 +1,13 @@
 import { Knex } from "knex";
+import { hashPassword } from "../utils/hash";
+
+interface userRegisterInfo {
+  nickname: string;
+  username: string;
+  email: string;
+  password: string;
+  icon: string;
+}
 
 export class UsersService {
   constructor(private knex: Knex) {}
@@ -6,11 +15,85 @@ export class UsersService {
     return await this.knex.select("*").from("users").where("email", email);
   }
 
+  async getIcons() {
+    return await this.knex.select("icon").from("icons");
+  }
+
+  async register(userInfo: userRegisterInfo) {
+    const emailList = await this.knex.select("email").from("users");
+    const usernameList = await this.knex.select("username").from("users");
+
+    const isUsernameRegistered = usernameList.some(
+      (user) => user.username === userInfo.username
+    );
+    const isEmailRegistered = emailList.some(
+      (user) => user.email === userInfo.email
+    );
+
+    if (isUsernameRegistered && isEmailRegistered) {
+      return {
+        status: "error",
+        message: [
+          {
+            errorFields: "username",
+            message: "This username is being registered.",
+          },
+          {
+            errorFields: "email",
+            message: "This email is being registered.",
+          },
+        ],
+      };
+    } else if (isUsernameRegistered) {
+      return {
+        status: "error",
+        message: [
+          {
+            errorFields: "username",
+            message: "This username is being registered",
+          },
+        ],
+      };
+    } else if (isEmailRegistered) {
+      return {
+        status: "error",
+        message: [
+          { errorFields: "email", message: "This email is being registered" },
+        ],
+      };
+    } else {
+      const newUserIconID = (
+        await this.knex.select("id").from("icons").where("icon", userInfo.icon)
+      )[0].id;
+
+      const newUserID: number = (
+        await this.knex
+          .insert({
+            nickname: userInfo.nickname,
+            username: userInfo.username,
+            email: userInfo.email,
+            password: await hashPassword(userInfo.password),
+            icon_id: newUserIconID,
+          })
+          .into("users")
+          .returning("users.id")
+      )[0].id;
+
+      return {
+        status: "success",
+        message: "Successfully register",
+        users: { username: userInfo.username, userID: newUserID },
+      };
+    }
+  }
+
   async getUserProfile(userID: number) {
+    console.log("service", userID);
     return await this.knex
-      .select("nickname", "username", "icon")
+      .select("users.nickname", "users.username", "icons.icon as icon")
       .from("users")
-      .where("id", userID);
+      .innerJoin("icons", "users.icon_id", "icons.id")
+      .where("users.id", userID);
   }
 
   async getUserCompleteLesson(userID: number) {
@@ -92,7 +175,7 @@ export class UsersService {
         "users.id as user_id",
         "users.nickname",
         "users.username",
-        "users.icon"
+        "icons.icon"
       )
       .sum({
         total_score: "quiz_scores.highest_score",
@@ -100,7 +183,8 @@ export class UsersService {
       .max({ latest_timestamp: "quiz_scores.updated_at" })
       .from("users")
       .innerJoin("quiz_scores", "users.id", "quiz_scores.user_id")
-      .groupBy("users.id")
+      .innerJoin("icons", "users.icon_id", "icons.id")
+      .groupBy("users.id", "icons.id")
       .whereIn("users.id", friendListArray)
       .orderBy("total_score", "desc")
       .orderBy("latest_timestamp", "asc");
@@ -108,9 +192,10 @@ export class UsersService {
 
   async getReceivedFriendRequests(userID: number) {
     return await this.knex
-      .select("requester_id", "users.nickname", "users.username", "users.icon")
+      .select("requester_id", "users.nickname", "users.username", "icons.icon")
       .from("friends")
       .innerJoin("users", "friends.requester_id", "users.id")
+      .innerJoin("icons", "users.icon_id", "icons.id")
       .where("requestee_id", userID)
       .andWhere("status", "Pending");
   }
@@ -122,10 +207,11 @@ export class UsersService {
         "status",
         "users.nickname",
         "users.username",
-        "users.icon"
+        "icons.icon"
       )
       .from("friends")
       .innerJoin("users", "friends.requestee_id", "users.id")
+      .innerJoin("icons", "users.icon_id", "icons.id")
       .where("requester_id", userID);
   }
 

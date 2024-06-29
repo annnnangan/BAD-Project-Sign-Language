@@ -8,7 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("icons").insert([
     { icon: "black-shirt-woman.png" },
     { icon: "blue-shirt-man.png" },
-    { icon: "blue-shirt-woman-2" },
+    { icon: "blue-shirt-woman-2.png" },
     { icon: "blue-shirt-woman.png" },
     { icon: "green-shirt-man.png" },
     { icon: "grey-shirt-man.png" },

@@ -15,64 +15,75 @@ const usernameErrorContainer = document.querySelector(
   ".input-control-username .error"
 );
 
+const loadingIcon = document.querySelector(".loading");
+const submitBtn = document.querySelector('input[type="submit"]');
+
 document
   .querySelector("#register-form")
   .addEventListener("submit", async (event) => {
+    submitBtn.style.display = "none";
+    loadingIcon.style.display = "block";
+
     let formError = false;
     event.preventDefault();
 
-    //Validate input data from frontend
-    validateInputs();
+    setTimeout(async () => {
+      submitBtn.style.display = "block";
+      loadingIcon.style.display = "none";
+      validateInputs();
 
-    inputControlDiv.forEach((field) => {
-      if (field.classList.contains("error")) {
-        formError = true;
-      }
-    });
+      //Validate input data from frontend
 
-    if (formError) {
-      return;
-    }
-
-    //Register Accounts
-    const form = event.target;
-
-    let formObject = {
-      nickname: form.nickname.value,
-      username: form.username.value,
-      email: form.email.value,
-      password: form.password.value,
-      icon: form.icon.value,
-    };
-
-    const res = await fetch("/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formObject),
-    });
-
-    const result = await res.json();
-
-    if (result.status === "success") {
-      form.reset();
-      window.location.href = "/profile/profile.html";
-    } else {
-      result.message.forEach((error) => {
-        if (error.errorFields === "username") {
-          usernameInputDiv.classList.add("error");
-          usernameErrorContainer.classList.add("active");
-          usernameErrorContainer.innerText = `${error.message}`;
-        }
-
-        if (error.errorFields === "email") {
-          emailInputDiv.classList.add("error");
-          emailErrorContainer.classList.add("active");
-          emailErrorContainer.innerText = `${error.message}`;
+      inputControlDiv.forEach((field) => {
+        if (field.classList.contains("error")) {
+          formError = true;
         }
       });
-    }
+
+      if (formError) {
+        return;
+      }
+
+      //Register Accounts
+      const form = event.target;
+
+      let formObject = {
+        nickname: form.nickname.value,
+        username: form.username.value,
+        email: form.email.value,
+        password: form.password.value,
+        icon: form.icon.value,
+      };
+
+      const res = await fetch("/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObject),
+      });
+
+      const result = await res.json();
+
+      if (result.status === "success") {
+        form.reset();
+        window.location.href = "/profile/profile.html";
+      } else {
+        result.message.forEach((error) => {
+          if (error.errorFields === "username") {
+            usernameInputDiv.classList.add("error");
+            usernameErrorContainer.classList.add("active");
+            usernameErrorContainer.innerText = `${error.message}`;
+          }
+
+          if (error.errorFields === "email") {
+            emailInputDiv.classList.add("error");
+            emailErrorContainer.classList.add("active");
+            emailErrorContainer.innerText = `${error.message}`;
+          }
+        });
+      }
+    }, 2000);
   });
 
 // Display Error Message when error

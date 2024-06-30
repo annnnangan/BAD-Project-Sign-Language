@@ -38,9 +38,8 @@ form input:not([type=radio]) {
   border-radius: 5px;
   border: 0;
 }
-form input[type=submit] {
+form .submit-btn {
   width: 30%;
-  padding: 10px;
   background-color: #ff8800;
   border: none;
   border-radius: 5px;
@@ -48,7 +47,22 @@ form input[type=submit] {
   font-weight: bold;
   transition: all 1s;
 }
-form input[type=submit]:hover {
+form .submit-btn .loading {
+  display: none;
+  padding: 10px;
+  text-align: center;
+}
+form .submit-btn input[type=submit] {
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 10px;
+  font: inherit;
+  outline: inherit;
+}
+form .submit-btn:hover {
   transition: all 0.5s;
   background-color: #fba646;
 }

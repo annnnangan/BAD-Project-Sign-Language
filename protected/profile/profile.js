@@ -9,11 +9,20 @@ window.addEventListener("load", async () => {
   const friendsTab = document.querySelector(".tab-friends-request");
   const bookmarksContainer = document.querySelector(".bookmarks");
   const friendsContent = document.querySelector(".friends-request");
+  const noRankAddFriendsBtn = document.querySelector(
+    ".no-data .add-friends-btn"
+  );
 
   let bookmarksTabActive = true;
   loadUserProfile();
   loadBookmarks();
   loadRank();
+
+  noRankAddFriendsBtn.addEventListener("click", async () => {
+    bookmarksTabActive = false;
+    activeTab();
+    loadFriendRequests();
+  });
 
   bookmarksTab.addEventListener("click", async () => {
     bookmarksTabActive = true;

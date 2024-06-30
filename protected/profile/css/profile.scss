@@ -223,11 +223,13 @@ header {
   width: 32rem;
   border: 2px solid black;
   height: 100%;
-  padding: 5px 20px 5px 40px;
+  padding: 5px 20px 5px 30px;
 
   h3 {
     font-size: 25px;
     text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
   }
   .user-icon {
     height: 70px;
@@ -486,6 +488,64 @@ header {
   }
 }
 
+.no-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #5c97d1;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #fbf9f2;
+
+  p {
+    font-size: 20px;
+    transform: translateY(-20px);
+    text-align: center;
+  }
+
+  img {
+    max-width: 150px;
+  }
+
+  button {
+    transform: translateY(-20px);
+  }
+
+  button {
+    padding: 5px 15px;
+    border: 0;
+    background-color: $colorCoreYellow;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 1s;
+
+    &:hover {
+      background-color: $colorHoverYellow;
+      transition: all 1s;
+    }
+  }
+}
+
+.ranking .no-data {
+  border: 0;
+  padding: 0px;
+  margin: 0 auto;
+
+  img {
+    max-width: 200px;
+  }
+
+  .buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 1016px) {
   .user-information {
     flex-direction: column;
@@ -522,6 +582,7 @@ header {
   }
   .ranking {
     width: 23rem;
+    padding: 5px 20px;
     .upper-list {
       transform: translateX(-30px);
       display: flex;
@@ -588,7 +649,12 @@ header {
   .rank-info {
     flex-direction: column;
   }
-  .ranking {
+
+  .upper-list {
+    margin-top: 10px;
+  }
+  .upper-list,
+  .down-list {
     padding: 5px 0px 5px 40px;
   }
 }
@@ -609,7 +675,7 @@ header {
 
   .ranking {
     width: 20rem;
-    padding: 5px 0px 5px 30px;
+    // padding: 5px 0px 5px 30px;
   }
 }
 
@@ -643,6 +709,11 @@ header {
   .ranking {
     width: 15rem;
   }
+
+  .upper-list,
+  .down-list {
+    padding: 5px 0px 5px 10px;
+  }
 }
 
 @media (max-width: 310px) {
@@ -657,7 +728,8 @@ header {
   }
 
   .ranking {
-    transform: scale(0.6) translateX(-90px) translateY(-190px);
+    margin-top: 20px;
+    transform: scale(0.6) translateX(-90px);
   }
 }
 

@@ -44,9 +44,25 @@ form {
     border: 0;
   }
 
-  input[type="submit"] {
+  .submit-btn {
+    .loading {
+      display: none;
+      padding: 10px;
+      text-align: center;
+    }
+
+    input[type="submit"] {
+      cursor: pointer;
+      width: 100%;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 10px;
+      font: inherit;
+      outline: inherit;
+    }
+
     width: 30%;
-    padding: 10px;
     background-color: #ff8800;
     border: none;
     border-radius: 5px;

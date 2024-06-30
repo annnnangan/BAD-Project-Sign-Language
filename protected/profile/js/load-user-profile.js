@@ -18,9 +18,18 @@ export async function loadUserProfile() {
   const quizTracker = document.querySelector(".quiz-tracker .number");
   const lessonTracker = document.querySelector(".lesson-tracker .number");
 
-  name.innerText = userProfile[0].nickname;
+  name.innerText = `, ${userProfile[0].nickname}!`;
   userIcon.src = `../assets/profile/${userProfile[0].icon}`;
   username.innerText = `@${userProfile[0].username}`;
-  lessonTracker.innerText = `${completeLessonCount[0].total_complete_lesson}/${lessonCount.length}`;
-  quizTracker.innerText = `${completeQuizCount[0].total_complete_quiz}/${quizCount.length}`;
+  if (completeLessonCount.length >= 1) {
+    lessonTracker.innerText = `${completeLessonCount[0].total_complete_lesson}/${lessonCount.length}`;
+  } else {
+    lessonTracker.innerText = `0/${lessonCount.length}`;
+  }
+
+  if (completeQuizCount >= 1) {
+    quizTracker.innerText = `${completeQuizCount[0].total_complete_quiz}/${quizCount.length}`;
+  } else {
+    quizTracker.innerText = `0/${quizCount.length}`;
+  }
 }

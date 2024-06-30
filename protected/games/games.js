@@ -1,16 +1,46 @@
 import { loadAlphabet } from "./js/load-alphabet.js";
 import "./js/load-quiz-list.js";
+import { loadQuizList } from "./js/load-quiz-list.js";
 
 window.onload = loadPage();
 
 async function loadPage() {
+  const searchParams = new URLSearchParams(location.search);
+  const gamesType = searchParams.get("games");
+
   const preload = document.querySelector(".preload");
 
-  await loadAlphabet();
   setTimeout(() => {
     preload.classList.add("preload-finish");
   }, 2000);
+
+  const quizTab = document.querySelector(".tabs .quiz");
+  const learningTab = document.querySelector(".tabs .learning");
+  const quizContainer = document.querySelector(".quiz-lists");
   const alphabetContainer = document.querySelector(".alphabet-lists");
+
+  const monsterColor = ["green", "orange", "blue", "yellow", "red"];
+
+  if (gamesType === "quiz") {
+    quizContainer.innerHTML = "";
+    alphabetContainer.style.display = "none";
+    quizContainer.style.display = "flex";
+    learningTab.classList.remove("selected");
+    quizTab.classList.add("selected");
+
+    loadQuizList();
+  } else {
+    loadAlphabet();
+  }
+
+  learningTab.addEventListener("click", (event) => {
+    alphabetContainer.style.display = "grid";
+    quizContainer.style.display = "none";
+    learningTab.classList.add("selected");
+    quizTab.classList.remove("selected");
+    loadAlphabet();
+  });
+
   const learningModal = document.getElementById("learningModal");
   const allModal = document.querySelectorAll(".modal");
 

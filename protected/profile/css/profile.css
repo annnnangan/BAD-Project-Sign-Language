@@ -187,11 +187,13 @@ header .trackers img {
   width: 32rem;
   border: 2px solid black;
   height: 100%;
-  padding: 5px 20px 5px 40px;
+  padding: 5px 20px 5px 30px;
 }
 .ranking h3 {
   font-size: 25px;
   text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 .ranking .user-icon {
   height: 70px;
@@ -422,6 +424,57 @@ header .trackers img {
   border-radius: 10px;
 }
 
+.no-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #5c97d1;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #fbf9f2;
+}
+.no-data p {
+  font-size: 20px;
+  transform: translateY(-20px);
+  text-align: center;
+}
+.no-data img {
+  max-width: 150px;
+}
+.no-data button {
+  transform: translateY(-20px);
+}
+.no-data button {
+  padding: 5px 15px;
+  border: 0;
+  background-color: #f3cc17;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 1s;
+}
+.no-data button:hover {
+  background-color: #ffdf51;
+  transition: all 1s;
+}
+
+.ranking .no-data {
+  border: 0;
+  padding: 0px;
+  margin: 0 auto;
+}
+.ranking .no-data img {
+  max-width: 200px;
+}
+.ranking .no-data .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1016px) {
   .user-information {
     flex-direction: column;
@@ -454,6 +507,7 @@ header .trackers img {
   }
   .ranking {
     width: 23rem;
+    padding: 5px 20px;
   }
   .ranking .upper-list {
     transform: translateX(-30px);
@@ -510,7 +564,11 @@ header .trackers img {
   .rank-info {
     flex-direction: column;
   }
-  .ranking {
+  .upper-list {
+    margin-top: 10px;
+  }
+  .upper-list,
+  .down-list {
     padding: 5px 0px 5px 40px;
   }
 }
@@ -527,7 +585,6 @@ header .trackers img {
   }
   .ranking {
     width: 20rem;
-    padding: 5px 0px 5px 30px;
   }
 }
 @media (max-width: 437px) {
@@ -555,6 +612,10 @@ header .trackers img {
   .ranking {
     width: 15rem;
   }
+  .upper-list,
+  .down-list {
+    padding: 5px 0px 5px 10px;
+  }
 }
 @media (max-width: 310px) {
   .ranking {
@@ -566,7 +627,8 @@ header .trackers img {
     flex-wrap: wrap;
   }
   .ranking {
-    transform: scale(0.6) translateX(-90px) translateY(-190px);
+    margin-top: 20px;
+    transform: scale(0.6) translateX(-90px);
   }
 }
 @media (max-width: 221px) {

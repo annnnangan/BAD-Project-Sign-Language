@@ -22,7 +22,7 @@ learningTab.addEventListener("click", (event) => {
   quizTab.classList.remove("selected");
 });
 
-async function loadQuizList() {
+export async function loadQuizList() {
   const quizListRes = await fetch(`/games/quiz-list`);
   const quizScoresRes = await fetch(`/games/quiz-score`);
   const quizList = await quizListRes.json();

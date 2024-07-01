@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+body {
+  background-color: #eeeeee;
+  font-family: "Play", sans-serif;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+canvas {
+  display: none;
+}
+
+button {
+  border: 0px;
+  background-color: #ffb100;
+  border-radius: 20px;
+  padding: 6px 30px;
+  transition: all 1s;
+}
+button:hover {
+  transition: all 1s;
+  background-color: #ffd36d;
+}
+
+.key-visual {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+.key-visual .introduction {
+  width: 60%;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 1s;
+}
+.key-visual .introduction .hand {
+  width: 25%;
+  position: absolute;
+  top: -50px;
+  right: -30px;
+  transition: all 1s;
+}
+.key-visual .introduction .hand:hover {
+  transition: all 1s;
+  animation: waveHand 1s ease infinite alternate;
+}
+.key-visual .monster-characters {
+  display: flex;
+  gap: 10px;
+}
+.key-visual .monster-characters img {
+  width: 30px;
+}
+.key-visual .text h3 {
+  text-align: center;
+}
+.key-visual .cta {
+  margin-top: 10px;
+}
+
+.key-monster img {
+  margin-top: 100px;
+}
+
+.features-container {
+  background-color: #beebff;
+  padding: 20px 15px;
+}
+.features-container h3 {
+  text-align: center;
+}
+.features-container ul {
+  padding-left: 0px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+}
+.features-container li {
+  width: 30%;
+  list-style: none;
+}
+.features-container li:hover img {
+  transition: all 1s ease-in;
+  border: 10px solid #ffb103;
+}
+.features-container li h4 {
+  margin-top: 20px;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.features-container li img {
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: all 2s;
+}
+.features-container li p {
+  margin-top: 0;
+}
+
+.trial-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.trial-container p {
+  margin-top: 10px;
+  text-align: center;
+}
+.trial-container .capture-btn {
+  margin-top: 10px;
+}
+.trial-container .trial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+.trial-container .cover {
+  background-color: #65c8f6;
+  padding: 80px 0px;
+  margin: 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.trial-container .cover p {
+  padding: 0px 50px;
+}
+.trial-container .start-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.trial-container .loading {
+  display: none;
+}
+.trial-container .games-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.trial-container .games-container .games {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 60%;
+  background-color: rgba(101, 200, 246, 0.3921568627);
+  border-radius: 20px;
+  border: 5px solid #ffb000;
+  overflow: hidden;
+}
+.trial-container .games-container img {
+  width: 30%;
+  transform: translateX(10px);
+}
+.trial-container .games-container .web-cam {
+  width: 80%;
+}
+
+.feedback {
+  position: relative;
+}
+.feedback .character-face {
+  position: absolute;
+  width: 200px;
+  top: -140px;
+  z-index: -1;
+  left: 135px;
+}
+.feedback .modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+.feedback .modal-body h5 {
+  font-size: 30px;
+}
+
+@media (max-width: 992px) {
+  ul {
+    justify-content: flex-start;
+  }
+  li {
+    width: 48%;
+  }
+}
+@media (max-width: 767px) {
+  .features-container ul {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px 30px;
+  }
+  .features-container li {
+    width: 100%;
+    text-align: center;
+  }
+}
+@media (max-width: 538px) {
+  .key-visual .introduction .hand {
+    top: -20px;
+    right: -40px;
+  }
+  .trial-container .games-container .games {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    padding: 10px;
+  }
+  .trial-container .games-container .games img {
+    width: 30%;
+    transform: translateX(10px);
+  }
+  .trial-container .games-container .games .web-cam {
+    width: 100%;
+  }
+}
+@media (max-width: 306px) {
+  .key-visual .introduction .hand {
+    top: -3px;
+    right: -20px;
+  }
+}
+@media (max-width: 199px) {
+  .key-visual .introduction .hand {
+    top: 10px;
+    right: -20px;
+  }
+}
+@keyframes waveHand {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(-20deg);
+  }
+}
+@keyframes magnifierMove {
+  0% {
+    transform: translateX(30px);
+  }
+  40% {
+    transform: translateX(-40px);
+  }
+  60% {
+    transform: translateX(50px);
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateX(-50px);
+    transform: translateY(-20px);
+  }
+}/*# sourceMappingURL=index.css.map */

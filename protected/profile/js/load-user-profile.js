@@ -27,7 +27,9 @@ export async function loadUserProfile() {
     lessonTracker.innerText = `0/${lessonCount.length}`;
   }
 
-  if (completeQuizCount >= 1) {
+  console.log(completeQuizCount);
+
+  if (completeQuizCount.length >= 1) {
     quizTracker.innerText = `${completeQuizCount[0].total_complete_quiz}/${quizCount.length}`;
   } else {
     quizTracker.innerText = `0/${quizCount.length}`;

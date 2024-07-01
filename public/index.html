@@ -3,18 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Monster</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="assets/logo/logo-monster-1.png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <div style="display: flex; flex-direction: column; align-items: center">
-      <div id="user-answer"></div>
-      <video id="video" style="width: 700px" autoplay></video>
+    <div class="key-visual">
+      <div class="introduction">
+        <img src="assets/others/goodbye-hand-gesture.png" class="hand" alt="" />
+        <div class="monster-characters">
+          <img src="assets/logo/logo-monster-1.png" alt="monster character" />
+          <img src="assets/logo/logo-monster-2.png" alt="monster character" />
+          <img src="assets/logo/logo-monster-3.png" alt="monster character" />
+        </div>
 
-      <button id="snap">Capture</button>
+        <div class="text">
+          <img class="logo" src="assets/logo/orange-name-logo.png" alt="" />
+          <h3>Learn Sign Language with AI</h3>
+        </div>
 
-      <canvas id="canvas" width="1280px" height="720px"></canvas>
+        <div class="cta">
+          <button><a href="register/register.html">Start Games</a></button>
+        </div>
+      </div>
+
+      <div class="key-monster">
+        <img src="assets/others/monster-half-face.png" alt="" />
+      </div>
     </div>
 
-    <script src="index.js"></script>
+    <div class="features-container">
+      <h3>Features</h3>
+      <ul class="features">
+        <li>
+          <img src="assets/others/learn-image.png" alt="" />
+          <h4>Learn</h4>
+          <p>
+            Perform the sign language on screen and AI will detect if you are
+            performing the correct sign language.
+          </p>
+        </li>
+        <li>
+          <img src="assets/others/quiz-image.png" alt="" />
+          <h4>Quiz</h4>
+          <p>See how much you have learned by doing quiz</p>
+        </li>
+        <li>
+          <img src="assets/others/ranking-image.png" alt="" />
+          <h4>Bonding</h4>
+          <p>Add your friends in the games and compare the quiz score</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="trial-container">
+      <h3>Have a try now</h3>
+
+      <div class="trial">
+        <div class="cover">
+          <div class="loading">
+            <span
+              class="spinner-border spinner-border-sm"
+              aria-hidden="true"
+            ></span>
+            <span role="status">Loading...</span>
+          </div>
+          <div class="start-button">
+            <button>Click to Start</button>
+            <p>
+              After clicking the above button, please perform the sign language
+              and show your hand to the camera
+            </p>
+          </div>
+        </div>
+
+        <div class="games-container">
+          <div class="games">
+            <img src="assets/others/l-sign.png" alt="sign language L" />
+            <video class="web-cam" autoplay></video>
+          </div>
+
+          <div class="capture">
+            <button
+              class="capture-btn"
+              data-bs-target="#feedbackModal"
+              data-bs-toggle="modal"
+            >
+              Capture
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- displaying correct/wrong feedback modal  -->
+      <div
+        class="modal fade"
+        id="feedbackModal"
+        aria-hidden="true"
+        aria-labelledby="feedbackModalLabel"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered feedback">
+          <div class="modal-content">
+            <div class="modal-header">
+              <img
+                class="character-face"
+                src="../assets/character/monster-excited-face.png"
+                alt=""
+              />
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <h5 class="modal-title">Congratulations!</h5>
+              <p class="modal-description">You've got it right!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary">
+                <a href="register/register.html">I like this games!!!</a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <canvas class="canvas"></canvas>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+
+    <script type="module" src="index.js"></script>
   </body>
 </html>

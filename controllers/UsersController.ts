@@ -120,19 +120,14 @@ export class UsersController {
 
   getRank = async (req: Request, res: Response) => {
     const userID: number = req.session.user_id as number;
-    const userList = await this.usersService.getFriendList(userID);
-    let uniqueUserList = new Set<number>();
 
-    for (let i in userList) {
-      uniqueUserList.add(userList[i].requester_id);
-      uniqueUserList.add(userList[i].requestee_id);
-    }
-
-    const result = await this.usersService.getRank(uniqueUserList);
+    const result = await this.usersService.getRank(userID);
 
     console.log(result);
     res.json(result);
   };
+
+  //Friends
 
   getReceivedFriendRequests = async (req: Request, res: Response) => {
     const userID: number = req.session.user_id as number;
@@ -149,12 +144,33 @@ export class UsersController {
 
   addNewFriends = async (req: Request, res: Response) => {
     try {
-      console.log("hello");
       const userID: number = req.session.user_id as number;
       const userName: string = req.body.username;
-      console.log(userName);
       const result = await this.usersService.addNewFriends(userID, userName);
-      console.log(result);
+
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ message: "server error" });
+    }
+  };
+
+  acceptFriends = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const userName: string = req.body.username;
+      const result = await this.usersService.acceptFriends(userID, userName);
+
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ message: "server error" });
+    }
+  };
+
+  rejectFriends = async (req: Request, res: Response) => {
+    try {
+      const userID: number = req.session.user_id as number;
+      const userName: string = req.body.username;
+      const result = await this.usersService.rejectFriends(userID, userName);
 
       res.json(result);
     } catch (e) {

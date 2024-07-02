@@ -39,6 +39,16 @@ export const getUsersRoutes = () => {
   );
 
   usersRoutes.post("/add-friend", isLoggedInAPI, usersController.addNewFriends);
+  usersRoutes.post(
+    "/accept-friend",
+    isLoggedInAPI,
+    usersController.acceptFriends
+  );
+  usersRoutes.post(
+    "/reject-friend",
+    isLoggedInAPI,
+    usersController.rejectFriends
+  );
 
   return usersRoutes;
 };

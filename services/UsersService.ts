@@ -273,7 +273,7 @@ export class UsersService {
         if (isFriend?.status === "Accept") {
           return {
             status: "error",
-            message: `${userName} are your friend already`,
+            message: `${userName} is your friend already`,
           };
         } else if (
           isFriend?.status === "Pending" &&

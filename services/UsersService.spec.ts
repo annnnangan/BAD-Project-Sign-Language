@@ -1,24 +1,28 @@
 import { UsersService } from "./UsersService";
+import { checkPassword, hashPassword } from "../utils/hash";
 
 import Knex from "knex";
 const knexConfig = require("../knexfile");
 const knex = Knex(knexConfig["test"]);
+
 describe("UsersService", () => {
   let usersService: UsersService;
   beforeEach(async () => {
     usersService = new UsersService(knex);
   });
+
   describe("User Login", () => {
     let userEmail: string;
 
     it("should get user", async () => {
+      //Insert a new users and return the email
       userEmail = (
         await knex
           .insert([
             {
-              nickname: "Ken",
-              username: "ken_ken",
-              email: "ken_lee@gamil.com",
+              nickname: "Oscar",
+              username: "oscar_lee_5555",
+              email: "oscar_lee_5555@gamil.com",
               password:
                 "$2a$10$ZjJdxQ2xQIiKGjiBeXoUzuogZa/e9okqd0pzFxEPHUhpg1aEaV3JW",
               icon_id: 2,
@@ -28,13 +32,14 @@ describe("UsersService", () => {
           .returning("email")
       )[0].email;
 
+      //Run the user service API
       const user = await usersService.getUserByEmail(userEmail);
 
       expect(user).toMatchObject([
         {
-          nickname: "Ken",
-          username: "ken_ken",
-          email: "ken_lee@gamil.com",
+          nickname: "Oscar",
+          username: "oscar_lee_5555",
+          email: "oscar_lee_5555@gamil.com",
           password:
             "$2a$10$ZjJdxQ2xQIiKGjiBeXoUzuogZa/e9okqd0pzFxEPHUhpg1aEaV3JW",
           icon_id: 2,
@@ -50,20 +55,15 @@ describe("UsersService", () => {
 
       expect(user).toEqual([]);
     });
-    //each time when we run, we should delete the testing data we just insert, otherwise there will be tons of data
-    // afterEach(async () => {
-    //   await knex("users").where("id", userID).del();
-    // });
-
-    //stop the knex connection after running all the test case
   });
 
   describe("Register Account", () => {
     it("should register account successfully", async () => {
+      //user info that user has filled
       const userRegisterInfo = {
-        nickname: "Ken",
-        username: "ken_ken",
-        email: "ken_lee@gamil.com",
+        nickname: "Oscar",
+        username: "oscar_lee_5555",
+        email: "oscar_lee_5555@gamil.com",
         password: "Tecky123",
         icon: "purple-shirt-man.png",
       };
@@ -71,30 +71,50 @@ describe("UsersService", () => {
       const registerResult = await usersService.register(userRegisterInfo);
 
       const newUser = await knex
-        .select("users.*")
+        .select("*")
         .from("users")
-        .where("username", "ken_ken");
+        .where("username", userRegisterInfo.username);
 
+      const newUserIconID = (
+        await knex
+          .select("icons.id as id")
+          .from("icons")
+          .innerJoin("users", "icons.id", "users.icon_id")
+          .where("icon", userRegisterInfo.icon)
+      )[0].id;
+
+      //if register success, we should get a success status message
       expect(registerResult).toMatchObject({
         status: "success",
         message: "Successfully register",
       });
 
+      //if register success, we should be able to find such 1 record in the user table
       expect(newUser.length).toBe(1);
 
+      //if register success, we should be able to find such record in the user table
       expect(newUser).toMatchObject([
         {
-          nickname: "Ken",
-          username: "ken_ken",
-          email: "ken_lee@gamil.com",
-          icon_id: 10,
+          nickname: userRegisterInfo.nickname,
+          username: userRegisterInfo.username,
+          email: userRegisterInfo.email,
+          icon_id: newUserIconID,
         },
       ]);
+
+      //Check if password is correct
+      const isCorrectPassword = await checkPassword(
+        userRegisterInfo.password,
+        newUser[0].password
+      );
+
+      expect(isCorrectPassword).toBeTruthy;
 
       await knex("users").where("username", userRegisterInfo.username).del();
     });
 
     it("should fail to register account because username and email exist", async () => {
+      //user filled in existing email and username
       const userRegisterInfo = {
         nickname: "Amy",
         username: "amy_smile_1",
@@ -104,6 +124,14 @@ describe("UsersService", () => {
       };
 
       const registerResult = await usersService.register(userRegisterInfo);
+      const user = await knex
+        .select("*")
+        .from("users")
+        .where("username", userRegisterInfo.username)
+        .andWhere("email", userRegisterInfo.email);
+
+      //make sure we do not insert one more record in the database
+      expect(user.length).toBe(1);
 
       expect(registerResult).toMatchObject({
         status: "error",
@@ -131,6 +159,15 @@ describe("UsersService", () => {
 
       const registerResult = await usersService.register(userRegisterInfo);
 
+      const user = await knex
+        .select("*")
+        .from("users")
+        .where("username", userRegisterInfo.username)
+        .andWhere("email", userRegisterInfo.email);
+
+      //make sure we do not insert the record in the database
+      expect(user.length).toBe(0);
+
       expect(registerResult).toMatchObject({
         status: "error",
         message: [
@@ -153,6 +190,15 @@ describe("UsersService", () => {
 
       const registerResult = await usersService.register(userRegisterInfo);
 
+      const user = await knex
+        .select("*")
+        .from("users")
+        .where("username", userRegisterInfo.username)
+        .andWhere("email", userRegisterInfo.email);
+
+      //make sure we do not insert the record in the database
+      expect(user.length).toBe(0);
+
       expect(registerResult).toMatchObject({
         status: "error",
         message: [
@@ -160,13 +206,58 @@ describe("UsersService", () => {
         ],
       });
     });
-
-    //stop the knex connection after running all the test case
   });
 
   describe("Bookmark", () => {
+    let newUserID: number;
+
+    beforeEach(async () => {
+      const newUserInfo = {
+        nickname: "Oscar",
+        username: "oscar_lee_5555",
+        email: "oscar_lee_5555@gamil.com",
+        password: "Tecky123",
+        icon: "purple-shirt-man.png",
+      };
+
+      const newUserIconID = (
+        await knex.select("id").from("icons").where("icon", newUserInfo.icon)
+      )[0].id;
+
+      newUserID = (
+        await knex
+          .insert({
+            nickname: newUserInfo.nickname,
+            username: newUserInfo.username,
+            email: newUserInfo.email,
+            password: await hashPassword(newUserInfo.password),
+            icon_id: newUserIconID,
+          })
+          .into("users")
+          .returning("users.id")
+      )[0].id;
+
+      await knex
+        .insert([
+          {
+            user_id: newUserID,
+            sign_language_id: 1,
+          },
+          {
+            user_id: newUserID,
+            sign_language_id: 2,
+          },
+          {
+            user_id: newUserID,
+            sign_language_id: 3,
+          },
+        ])
+        .into("bookmarks")
+        .returning("id");
+    });
+
     it("should return all bookmarks", async () => {
-      const bookmarkLists = await usersService.getBookmarks(4);
+      const bookmarkLists = await usersService.getBookmarks(newUserID);
 
       expect(bookmarkLists.length).toBe(3);
 
@@ -180,17 +271,17 @@ describe("UsersService", () => {
           sign_language_id: 2,
         },
         {
-          sign_language: "g",
-          sign_language_id: 7,
+          sign_language: "c",
+          sign_language_id: 3,
         },
       ]);
     });
 
     it("should remove bookmarks", async () => {
-      await usersService.removeBookmark(4, "a");
+      await usersService.removeBookmark(newUserID, "a");
 
       const updatedBookmarkLists = await knex
-        .select("bookmarks.sign_language_id", "sign_languages.sign_language")
+        .select("bookmarks.sign_language_id")
         .from("bookmarks")
         .leftJoin(
           "sign_languages",
@@ -198,26 +289,26 @@ describe("UsersService", () => {
           "sign_languages.id"
         )
         .orderBy("bookmarks.sign_language_id", "asc")
-        .where("user_id", 4);
+        .where("user_id", newUserID);
 
       expect(updatedBookmarkLists.length).toBe(2);
 
       expect(updatedBookmarkLists).toMatchObject([
         {
-          sign_language: "b",
           sign_language_id: 2,
         },
         {
-          sign_language: "g",
-          sign_language_id: 7,
+          sign_language_id: 3,
         },
       ]);
 
-      await knex.insert({ user_id: 4, sign_language_id: 1 }).into("bookmarks");
+      await knex
+        .insert({ user_id: newUserID, sign_language_id: 1 })
+        .into("bookmarks");
     });
 
-    it("should add new bookmark", async () => {
-      await usersService.insertBookmark(4, "d");
+    it.only("should add new bookmark", async () => {
+      await usersService.insertBookmark(newUserID, "d");
 
       const updatedBookmarkLists = await knex
         .select("bookmarks.sign_language_id", "sign_languages.sign_language")
@@ -228,7 +319,7 @@ describe("UsersService", () => {
           "sign_languages.id"
         )
         .orderBy("bookmarks.sign_language_id", "asc")
-        .where("user_id", 4);
+        .where("user_id", newUserID);
 
       expect(updatedBookmarkLists.length).toBe(4);
 
@@ -242,12 +333,12 @@ describe("UsersService", () => {
           sign_language_id: 2,
         },
         {
-          sign_language: "d",
-          sign_language_id: 4,
+          sign_language: "c",
+          sign_language_id: 3,
         },
         {
-          sign_language: "g",
-          sign_language_id: 7,
+          sign_language: "d",
+          sign_language_id: 4,
         },
       ]);
 
@@ -255,6 +346,13 @@ describe("UsersService", () => {
         .where("user_id", 4)
         .andWhere("sign_language_id", 4)
         .del();
+    });
+
+    afterEach(async () => {
+      //remove bookmarks
+      await knex("bookmarks").where("user_id", newUserID).del();
+      //remove user
+      await knex("users").where("id", newUserID).del();
     });
   });
 
@@ -356,7 +454,7 @@ describe("UsersService", () => {
       });
     });
 
-    it.only("should accept friends request", async () => {
+    it("should accept friends request", async () => {
       await usersService.acceptFriends(4, "amy_smile_1");
 
       const friendStatus = (
@@ -375,7 +473,7 @@ describe("UsersService", () => {
         .andWhere("requestee_id", 4);
     });
 
-    it.only("should reject friends request", async () => {
+    it("should reject friends request", async () => {
       await usersService.rejectFriends(4, "amy_smile_1");
 
       const friendStatus = (

@@ -12,11 +12,9 @@ describe("UsersService", () => {
   });
 
   describe("User Login", () => {
-    let userEmail: string;
-
-    it("should get user", async () => {
+    it("login successfully", async () => {
       //Insert a new users and return the email
-      userEmail = (
+      const newUser = (
         await knex
           .insert([
             {
@@ -29,31 +27,28 @@ describe("UsersService", () => {
             },
           ])
           .into("users")
-          .returning("email")
-      )[0].email;
+          .returning(["id", "username", "email", "password"])
+      )[0];
 
-      //Run the user service API
-      const user = await usersService.getUserByEmail(userEmail);
+      const result = await usersService.getUsersLogin(
+        "oscar_lee_5555@gamil.com",
+        "Tecky123"
+      );
 
-      expect(user).toMatchObject([
-        {
-          nickname: "Oscar",
-          username: "oscar_lee_5555",
-          email: "oscar_lee_5555@gamil.com",
-          password:
-            "$2a$10$ZjJdxQ2xQIiKGjiBeXoUzuogZa/e9okqd0pzFxEPHUhpg1aEaV3JW",
-          icon_id: 2,
-        },
-      ]);
+      expect(result).toMatchObject({
+        status: "success",
+        message: { userID: newUser.id, username: newUser.username },
+      });
 
-      await knex("users").where("email", userEmail).del();
+      await knex("users").where("email", newUser.email).del();
     });
 
-    it("should not get user", async () => {
+    it("fail to login due to incorrect user email", async () => {
       const userEmail = "not_exist_email@gamil.com";
-      const user = await usersService.getUserByEmail(userEmail);
+      const userPassword = "Tecky123";
+      const user = await usersService.getUsersLogin(userEmail, userPassword);
 
-      expect(user).toEqual([]);
+      expect(user).toEqual({ status: "error" });
     });
   });
 
@@ -252,8 +247,7 @@ describe("UsersService", () => {
             sign_language_id: 3,
           },
         ])
-        .into("bookmarks")
-        .returning("id");
+        .into("bookmarks");
     });
 
     it("should return all bookmarks", async () => {
@@ -301,13 +295,9 @@ describe("UsersService", () => {
           sign_language_id: 3,
         },
       ]);
-
-      await knex
-        .insert({ user_id: newUserID, sign_language_id: 1 })
-        .into("bookmarks");
     });
 
-    it.only("should add new bookmark", async () => {
+    it("should add new bookmark", async () => {
       await usersService.insertBookmark(newUserID, "d");
 
       const updatedBookmarkLists = await knex
@@ -341,11 +331,6 @@ describe("UsersService", () => {
           sign_language_id: 4,
         },
       ]);
-
-      await knex("bookmarks")
-        .where("user_id", 4)
-        .andWhere("sign_language_id", 4)
-        .del();
     });
 
     afterEach(async () => {
@@ -357,8 +342,8 @@ describe("UsersService", () => {
   });
 
   describe("Ranking", () => {
-    it("should get 4 users in the ranking", async () => {
-      const rankList = await usersService.getRank(3);
+    it("should get 2 users in the ranking", async () => {
+      const rankList = await usersService.getRank(4);
       expect(rankList.length).toBe(4);
 
       expect(rankList).toMatchObject([

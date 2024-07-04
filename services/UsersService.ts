@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { hashPassword } from "../utils/hash";
+import { checkPassword, hashPassword } from "../utils/hash";
 
 interface userRegisterInfo {
   nickname: string;
@@ -12,8 +12,26 @@ interface userRegisterInfo {
 export class UsersService {
   constructor(private knex: Knex) {}
 
-  async getUserByEmail(email: string) {
-    return await this.knex.select("*").from("users").where("email", email);
+  async getUsersLogin(email: string, password: string) {
+    const result = await this.knex
+      .select("*")
+      .from("users")
+      .where("email", email);
+
+    if (result.length == 1) {
+      const matched = await checkPassword(password, result[0].password);
+
+      if (matched) {
+        return {
+          status: "success",
+          message: { username: result[0].username, userID: result[0].id },
+        };
+      } else {
+        return { status: "error" };
+      }
+    } else {
+      return { status: "error" };
+    }
   }
 
   async getIcons() {

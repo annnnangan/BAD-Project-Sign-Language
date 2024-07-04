@@ -21,8 +21,8 @@ export async function loadFriendRequests() {
     receivedRequestsContainer.innerHTML += `<div class="message"><p>No Friend Requests</p></div>`;
   } else {
     receivedFriendRequests.forEach((request) => {
-      receivedRequestsContainer.innerHTML += `<div class="request">
-                    <div class="user-info" data-user=${request.requester_id}>
+      receivedRequestsContainer.innerHTML += `<div class="request" data-user=${request.username}>
+                    <div class="user-info">
                       <div class="user-icon">
                         <img src="../assets/profile/${request.icon}" alt="" />
                       </div>

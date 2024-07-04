@@ -157,8 +157,11 @@ export class UsersController {
   acceptFriends = async (req: Request, res: Response) => {
     try {
       const userID: number = req.session.user_id as number;
-      const userName: string = req.body.username;
-      const result = await this.usersService.acceptFriends(userID, userName);
+      const requesterUsername: string = req.body.requesterUsername;
+      const result = await this.usersService.acceptFriends(
+        userID,
+        requesterUsername
+      );
 
       res.json(result);
     } catch (e) {
@@ -169,8 +172,11 @@ export class UsersController {
   rejectFriends = async (req: Request, res: Response) => {
     try {
       const userID: number = req.session.user_id as number;
-      const userName: string = req.body.username;
-      const result = await this.usersService.rejectFriends(userID, userName);
+      const requesterUsername: string = req.body.requesterUsername;
+      const result = await this.usersService.rejectFriends(
+        userID,
+        requesterUsername
+      );
 
       res.json(result);
     } catch (e) {

@@ -3,6 +3,7 @@ import { loadRank } from "./js/load-rank.js";
 import { loadUserProfile } from "./js/load-user-profile.js";
 import { loadFriendRequests } from "./js/load-friend-requests.js";
 import "./js/add-friends.js";
+import { responseFriendRequests } from "./js/response-to-friend-requests.js";
 
 window.addEventListener("load", async () => {
   const bookmarksTab = document.querySelector(".tab-bookmark");
@@ -30,10 +31,11 @@ window.addEventListener("load", async () => {
     loadBookmarks();
   });
 
-  friendsTab.addEventListener("click", () => {
+  friendsTab.addEventListener("click", async () => {
     bookmarksTabActive = false;
     activeTab();
-    loadFriendRequests();
+    await loadFriendRequests();
+    responseFriendRequests();
   });
 
   function activeTab() {

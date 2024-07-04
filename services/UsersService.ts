@@ -203,7 +203,7 @@ export class UsersService {
   //Friends
   async getReceivedFriendRequests(userID: number) {
     return await this.knex
-      .select("requester_id", "users.nickname", "users.username", "icons.icon")
+      .select("users.nickname", "users.username", "icons.icon")
       .from("friends")
       .innerJoin("users", "friends.requester_id", "users.id")
       .innerJoin("icons", "users.icon_id", "icons.id")
@@ -213,13 +213,7 @@ export class UsersService {
 
   async getSentFriendRequests(userID: number) {
     return await this.knex
-      .select(
-        "requestee_id",
-        "status",
-        "users.nickname",
-        "users.username",
-        "icons.icon"
-      )
+      .select("status", "users.nickname", "users.username", "icons.icon")
       .from("friends")
       .innerJoin("users", "friends.requestee_id", "users.id")
       .innerJoin("icons", "users.icon_id", "icons.id")
@@ -340,9 +334,12 @@ export class UsersService {
     }
   }
 
-  async acceptFriends(userID: number, userName: string) {
+  async acceptFriends(userID: number, requesterUsername: string) {
     const requesterID = (
-      await this.knex.select("id").from("users").where("username", userName)
+      await this.knex
+        .select("id")
+        .from("users")
+        .where("username", requesterUsername)
     )[0].id;
 
     await this.knex("friends")
@@ -351,9 +348,12 @@ export class UsersService {
       .andWhere("requestee_id", userID);
   }
 
-  async rejectFriends(userID: number, userName: string) {
+  async rejectFriends(userID: number, requesterUsername: string) {
     const requesterID = (
-      await this.knex.select("id").from("users").where("username", userName)
+      await this.knex
+        .select("id")
+        .from("users")
+        .where("username", requesterUsername)
     )[0].id;
 
     await this.knex("friends")

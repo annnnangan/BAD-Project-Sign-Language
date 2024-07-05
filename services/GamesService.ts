@@ -52,6 +52,7 @@ export class GamesService {
     if (quizID != 5) {
       return await this.knex
         .select(
+          "quiz_questions.quiz_id",
           "quizzes.quiz",
           "quizzes.description",
           "quiz_questions.question_type_id",
@@ -107,9 +108,6 @@ export class GamesService {
       .where("user_id", userID)
       .andWhere("quiz_id", quizID);
 
-    console.log("existingScore", existingScore);
-    console.log("score", score);
-
     if (existingScore[0]) {
       if (score > existingScore[0].highest_score) {
         await this.knex("quiz_scores")
@@ -118,7 +116,7 @@ export class GamesService {
           .andWhere("quiz_id", quizID);
         return { msg: "success" };
       } else {
-        return { msg: "Same Score" };
+        return { msg: "Same Score / lower score" };
       }
     } else {
       await this.knex

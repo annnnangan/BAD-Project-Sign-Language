@@ -4,7 +4,7 @@ async function loadPage() {
   const preload = document.querySelector(".preload");
 
   const searchParams = new URLSearchParams(location.search);
-  const quizID = searchParams.get("quiz");
+  const quizID = parseInt(searchParams.get("quiz"));
 
   let questions;
   let currentQuestionIndex = 0;

@@ -65,7 +65,10 @@ describe("GamesService", () => {
 
     it("should complete a language", async () => {
       const signLanguage = "e";
-      await gamesService.completeLanguage(newUserID, signLanguage);
+      const resultMessage = await gamesService.completeLanguage(
+        newUserID,
+        signLanguage
+      );
 
       const signLanguageID = (
         await knex
@@ -80,8 +83,8 @@ describe("GamesService", () => {
         .where("user_id", newUserID)
         .andWhere("sign_language_id", signLanguageID);
 
+      expect(resultMessage).toMatchObject({ message: "Insert successfully" });
       expect(result.length).toBe(1);
-
       expect(result).toMatchObject([
         { user_id: newUserID, sign_language_id: signLanguageID },
       ]);
@@ -101,9 +104,10 @@ describe("GamesService", () => {
       const quizID = 3;
       const result = await gamesService.getQuizQuestion(quizID);
 
-      expect(result.length).toBeLessThanOrEqual(5);
+      expect(result.status).toBe("success");
+      expect(result.data).toBeLessThanOrEqual(5);
 
-      result.forEach((question) => {
+      result.data?.forEach((question) => {
         expect(question).toHaveProperty("quiz");
         expect(question).toHaveProperty("description");
         expect(question).toHaveProperty("question_type_id");
@@ -113,7 +117,7 @@ describe("GamesService", () => {
         expect(question).toHaveProperty("choice");
       });
 
-      result.forEach((question) => {
+      result.data?.forEach((question) => {
         expect(question.quiz_id).toBe(quizID);
       });
     });
@@ -121,9 +125,10 @@ describe("GamesService", () => {
     it("should return quiz questions from different quizzes for quizID 5", async () => {
       const quizID = 5;
       const result = await gamesService.getQuizQuestion(quizID);
-      expect(result.length).toBeLessThanOrEqual(5);
+      expect(result.status).toBe("success");
+      expect(result.data).toBeLessThanOrEqual(5);
 
-      result.forEach((question) => {
+      result.data?.forEach((question) => {
         expect(question).toHaveProperty("quiz");
         expect(question).toHaveProperty("description");
         expect(question).toHaveProperty("question_type_id");

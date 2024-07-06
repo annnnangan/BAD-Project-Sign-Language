@@ -41,6 +41,9 @@ export class GamesService {
           sign_language_id: signLanguageID,
         })
         .into("complete_learning_list");
+      return { message: "Insert successfully" };
+    } else {
+      return { message: "The language has been completed before." };
     }
   }
 
@@ -49,8 +52,18 @@ export class GamesService {
   }
 
   async getQuizQuestion(quizID: number) {
+    //check if quiz id exist in database, return error message if not exist
+    const isQuizExist = await this.knex
+      .select("id")
+      .from("quizzes")
+      .where("id", quizID);
+
+    if (isQuizExist.length == 0) {
+      return { status: "error", message: "Quiz doesn't exist." };
+    }
+
     if (quizID != 5) {
-      return await this.knex
+      const questionLists = await this.knex
         .select(
           "quiz_questions.quiz_id",
           "quizzes.quiz",
@@ -71,8 +84,9 @@ export class GamesService {
         )
         .leftJoin("quizzes", "quiz_questions.quiz_id", "quizzes.id")
         .where("quiz_id", quizID);
+      return { status: "success", data: questionLists };
     } else {
-      return await this.knex
+      const questionLists = await this.knex
         .select(
           "quizzes.quiz",
           "quizzes.description",
@@ -91,6 +105,8 @@ export class GamesService {
           "quiz_choices.question_id"
         )
         .leftJoin("quizzes", "quiz_questions.quiz_id", "quizzes.id");
+
+      return { status: "success", data: questionLists };
     }
   }
 

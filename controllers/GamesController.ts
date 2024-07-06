@@ -10,33 +10,52 @@ export class GamesController {
   };
 
   getCompleteList = async (req: Request, res: Response) => {
-    const userID = req.session.user_id as number;
-    const result = await this.gamesService.getCompleteLanguage(userID);
-    res.status(200).json(result);
+    try {
+      const userID = req.session.user_id as number;
+      if (userID) {
+        const result = await this.gamesService.getCompleteLanguage(userID);
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: "Missing UserID" });
+      }
+    } catch (e) {
+      res.status(500).json({ message: "error" });
+    }
   };
 
   updateCompleteLanguage = async (req: Request, res: Response) => {
-    const userID = req.session.user_id as number;
-    const signLanguage = req.params.index;
+    try {
+      const userID = req.session.user_id as number;
+      const signLanguage = req.params.index;
 
-    const result = await this.gamesService.completeLanguage(
-      userID,
-      signLanguage
-    );
+      const result = await this.gamesService.completeLanguage(
+        userID,
+        signLanguage
+      );
 
-    res.json(result);
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ message: "error" });
+    }
   };
 
   getQuizList = async (req: Request, res: Response) => {
     const result = await this.gamesService.getQuizList();
-    console.log(result);
     res.json(result);
   };
 
   getQuizQuestion = async (req: Request, res: Response) => {
-    const quizID = parseInt(req.query.quiz as string);
-    const result = await this.gamesService.getQuizQuestion(quizID);
-    res.json(result);
+    try {
+      const quizID = parseInt(req.query.quiz as string);
+      const result = await this.gamesService.getQuizQuestion(quizID);
+      if (result.status === "success") {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json(result);
+      }
+    } catch (e) {
+      res.status(500).json({ message: "error" });
+    }
   };
 
   getQuizHighestScore = async (req: Request, res: Response) => {

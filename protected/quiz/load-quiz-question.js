@@ -10,6 +10,7 @@ async function loadPage() {
   let currentQuestionIndex = 0;
   let score = 0;
   const app = document.querySelector(".app");
+  const errorModal = document.querySelector(".error");
   const detectLoader = document.querySelector(".detect-load");
   const questionElement = document.getElementById("question");
   const questionImage = document.querySelector(".question-image");
@@ -38,9 +39,6 @@ async function loadPage() {
 
   await startQuiz();
 
-  quizSmallTitle.innerText = questions[0].quiz;
-  quizTitle.innerText = questions[0].description;
-
   setTimeout(() => {
     preload.classList.add("preload-finish");
   }, 2000);
@@ -48,9 +46,19 @@ async function loadPage() {
   async function startQuiz() {
     const quizQuestionRes = await fetch(`/games/quiz?quiz=${quizID}`);
     questions = await quizQuestionRes.json();
+    console.log(questions);
     currentQuestionIndex = 0;
     score = 0;
-    showQuestion();
+
+    if (questions.status === "error") {
+      app.style.display = "none";
+      errorModal.style.display = "flex";
+    } else {
+      questions = questions.data;
+      quizSmallTitle.innerText = questions[0].quiz;
+      quizTitle.innerText = questions[0].description;
+      showQuestion();
+    }
   }
 
   function showQuestion() {

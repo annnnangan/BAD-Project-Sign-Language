@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +10,7 @@ a {
 }
 
 body {
+  font-family: "Play", sans-serif;
   background-color: #b2d8fe;
   display: flex;
   justify-content: center;
@@ -272,6 +274,42 @@ canvas {
   width: 150px;
 }
 
+.error.modal {
+  width: 50%;
+  margin: 0 auto;
+  padding: 100px 50px;
+  font-family: "Play", sans-serif;
+  gap: 10px;
+}
+.error.modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+  color: red;
+  text-align: center;
+}
+.error.modal img {
+  width: 150px;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 0.75rem rgba(166, 166, 166, 0.437));
+}
+.error.modal p {
+  margin-top: -20px;
+}
+.error.modal button {
+  font-family: "Play", sans-serif;
+  background-color: #f3cc17;
+  transition: all 1s;
+  border: 0px;
+}
+.error.modal button:hover {
+  transition: all 1s;
+  background-color: #ffdf51;
+  color: black;
+}
+
 @keyframes magnifierMove {
   0% {
     transform: translateX(30px);
@@ -291,5 +329,19 @@ canvas {
 @keyframes textMove {
   to {
     transform: translateX(-10px);
+  }
+}
+@media (max-width: 234px) {
+  .error.modal {
+    padding: 30px;
+  }
+  .error.modal p {
+    font-size: 13px;
+  }
+  .error.modal button {
+    font-size: 10px;
+  }
+  .error.modal img {
+    width: 80px;
   }
 }/*# sourceMappingURL=quiz.css.map */

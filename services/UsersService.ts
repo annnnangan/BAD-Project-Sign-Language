@@ -364,6 +364,8 @@ export class UsersService {
       .update("status", "Accept")
       .where("requester_id", requesterID)
       .andWhere("requestee_id", userID);
+
+    return { status: "success", message: "accept friends successfully" };
   }
 
   async rejectFriends(userID: number, requesterUsername: string) {
@@ -378,5 +380,7 @@ export class UsersService {
       .update("status", "Reject")
       .where("requester_id", requesterID)
       .andWhere("requestee_id", userID);
+
+    return { status: "success", message: "reject friends successfully" };
   }
 }

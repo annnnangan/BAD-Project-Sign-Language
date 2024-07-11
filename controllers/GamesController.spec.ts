@@ -4,11 +4,6 @@ import { Knex } from "knex";
 import { Request, Response } from "express";
 import { createRequest, createResponse } from "../utils/mock";
 
-//toHaveBeenCalled
-//toHaveBeenCalledWith
-//toHaveBeenCalledTimes
-//toHaveReturnedWith
-
 describe("gamesController", () => {
   let gamesController: GamesController;
   let gamesService: GamesService;

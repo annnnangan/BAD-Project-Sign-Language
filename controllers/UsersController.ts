@@ -6,12 +6,15 @@ export class UsersController {
 
   getUsersLogin = async (req: Request, res: Response) => {
     try {
+      const userEmail: string = req.body.email;
+      const userPassword: string = req.body.password;
+
       const result = await this.usersService.getUsersLogin(
-        req.body.email,
-        req.body.password
+        userEmail,
+        userPassword
       );
       if (result.status === "success") {
-        console.log("login success");
+        // console.log("login success");
         req.session.user = result.message?.username;
         req.session.user_id = result.message?.userID;
         res.status(200).json({ message: "success" });
@@ -36,8 +39,6 @@ export class UsersController {
     try {
       const result = await this.usersService.register(req.body);
 
-      console.log(result);
-
       if (result.status === "success") {
         if (result.users) {
           req.session.user = result.users.username;
@@ -54,9 +55,7 @@ export class UsersController {
   getUserProfile = async (req: Request, res: Response) => {
     try {
       const userID: number = req.session.user_id as number;
-      console.log("session id", userID);
       const result = await this.usersService.getUserProfile(userID);
-      console.log("profile result", result);
       res.status(200).json(result);
     } catch (e) {
       res.status(500).json({ error: e });
@@ -110,19 +109,20 @@ export class UsersController {
       const userID: number = req.session.user_id as number;
       const signLanguage = req.body.signLanguage;
       await this.usersService.insertBookmark(userID, signLanguage);
-      res.status(200).json({ message: "remove successfully" });
+      res.status(200).json({ message: "insert successfully" });
     } catch (e) {
       res.status(500).json({ error: e });
     }
   };
 
   getRank = async (req: Request, res: Response) => {
-    const userID: number = req.session.user_id as number;
-
-    const result = await this.usersService.getRank(userID);
-
-    console.log(result);
-    res.json(result);
+    try {
+      const userID: number = req.session.user_id as number;
+      const result = await this.usersService.getRank(userID);
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
   };
 
   //Friends
@@ -146,7 +146,13 @@ export class UsersController {
       const userName: string = req.body.username;
       const result = await this.usersService.addNewFriends(userID, userName);
 
-      res.json(result);
+      if (result.status === "success") {
+        res.status(200).json(result);
+      } else if (result.message === "User does not exist.") {
+        res.status(404).json(result);
+      } else {
+        res.status(500).json(result);
+      }
     } catch (e) {
       res.status(500).json({ message: "server error" });
     }

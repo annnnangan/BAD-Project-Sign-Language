@@ -1,52 +1,112 @@
-import pickle
 from sanic import Sanic
 from sanic.response import json
-import cv2
-import mediapipe as mp
 import numpy as np
+import cv2
+from cvzone.HandTrackingModule import HandDetector
+import math
 import tensorflow as tf
 
-app = Sanic("Sign-language")
+tf.keras.backend.clear_session(
+    free_memory=True
+)
 
-labels_dict = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H', 8: 'I', 9: 'K', 10: 'L', 11: 'M', 12: 'N', 13: 'O', 14: 'P', 15: 'Q', 16: 'R', 17: 'S', 18: 'T', 19: 'U', 20: 'V', 21: 'W', 22: 'X', 23: 'Y'}
+tf.config.experimental.set_visible_devices([], 'GPU')
 
-mp_hands = mp.solutions.hands #initialize the Hands class an store it in a variable
-mp_drawing = mp.solutions.drawing_utils #draw all the hand’s landmarks points on the output image
-mp_drawing_styles = mp.solutions.drawing_styles
-hands = mp_hands.Hands(static_image_mode=True,min_detection_confidence=0.3)
+# Load the trained model
+model = tf.keras.models.load_model('my_model.keras')
 
-model_dict = pickle.load(open('./model-final.p','rb'))
-model = model_dict['model']
 
-#model = tf.keras.models.load_model('my_model.keras')
+app = Sanic("Sign-language2")
 
+
+detector = HandDetector(staticMode=True, maxHands=1)
+offset = 20
+imgSize = 150
+
+
+def get_class_names():
+    return "ABCDEFGHIKLMNOPQRSTUVWXY"
+
+
+def model_detection(image):
+    print("HELLO 2")
+    # global detector
+    # global model
+
+    hands, img = detector.findHands(image)
+    print(hands)
+
+    if hands:
+        print("HELLO 3")
+
+        hand = hands[0]
+        x, y, w, h = hand["bbox"]
+        imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
+        imgCrop = img[y - offset : y + h + offset, x - offset : x + w + offset]
+
+        if imgCrop.size == 0:
+            return "NO HAND DETECTED", "", ""
+
+        aspectRatio = h / w
+
+        if aspectRatio > 1:
+            k = imgSize / h
+            wCal = math.ceil(k * w)
+            imgResize = cv2.resize(imgCrop, (wCal, imgSize))
+            wGap = math.ceil((imgSize - wCal) / 2)
+            imgWhite[:, wGap : wCal + wGap] = imgResize
+        else:
+            k = imgSize / w
+            hCal = math.ceil(k * h)
+            imgResize = cv2.resize(imgCrop, (imgSize, hCal))
+            hGap = math.ceil((imgSize - hCal) / 2)
+            imgWhite[hGap : hCal + hGap, :] = imgResize
+        
+        print("HELLO 4")
+        
+        # Preprocess the image for prediction
+        img_array = imgWhite.astype("float32")
+        img_array = np.expand_dims(img_array, axis=0)
+        print(img_array.shape)
+        print("HELLO 5")
+        # Make predictions
+        try:
+            print("HELLO 6")
+            
+            predictions = model.predict(img_array, verbose=False)
+            print("HELLO 7")
+            predicted_label_idx = np.argmax(predictions)
+            print("HELLO 8")
+            class_names = get_class_names()
+            predicted_label = class_names[predicted_label_idx]
+            print(predicted_label)
+            
+            return predicted_label
+        except Exception as e:
+            print(e)
+    print("HELLO 9")
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    return "NO HAND DETECTED", "", ""
+
+
+# @app.route("/detectSign", methods=["POST"])
 @app.post("/")
-def callModel(request):
-    content = request.json
-    print(content)
-    img = cv2.imread(content)
-    
+def detect_sign(request):
+        print("HELLO 1")
+        # Process the image and get the results
+        content = request.json
+        print(content) 
+        img = cv2.imread(content)
+        print(img.shape)
 
-    data = []
-    data_aux = []
+        sign = model_detection(img)
+   
+        return json({ "data": sign})
 
-    img_rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB) #Mediapipe processes frames in RGB format.
-    results = hands.process(img_rgb) #detects hand landmarks in the frame
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
-            for i in range(len(hand_landmarks.landmark)): #each hand keypoints
-                x = hand_landmarks.landmark[i].x
-                y = hand_landmarks.landmark[i].y
-                data_aux.append(x)
-                data_aux.append(y)
-                data.append(data_aux)
-
-    prediction = model.predict([np.asarray(data_aux)])
-    predicted_character = labels_dict[int(prediction[0])]
-
-
-
-    return json({ "data": predicted_character})
+    # except Exception as e:
+    #     print(f"Error in detect_sign: {e}")
+    #     return json({"Error": f"Internal server error: {e}"}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, single_process=True)

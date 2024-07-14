@@ -8,7 +8,6 @@ jspm_package
 .env
 tf_python
 
-snapshot
 data
 DATASET1
 test-2.ipynb

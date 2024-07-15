@@ -123,3 +123,28 @@ form {
   height: 12px;
   margin-bottom: 15px;
 }
+
+@media (max-width: 800px) {
+  body {
+    padding: 10px 0;
+  }
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .input-control .error.active {
+    margin-bottom: 30px;
+  }
+
+  div.input-control:nth-of-type(6) {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  form .submit-btn {
+    width: 50%;
+  }
+}

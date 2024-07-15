@@ -74,7 +74,6 @@ describe("UsersService", () => {
         await knex
           .select("icons.id as id")
           .from("icons")
-          .innerJoin("users", "icons.id", "users.icon_id")
           .where("icon", userRegisterInfo.icon)
       )[0].id;
 

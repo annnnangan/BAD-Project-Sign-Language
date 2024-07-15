@@ -217,12 +217,8 @@ describe("UsersService", () => {
         username: "oscar_lee_5555",
         email: "oscar_lee_5555@gamil.com",
         password: "Tecky123",
-        icon: "purple-shirt-man.png",
+        icon_id: 2,
       };
-
-      const newUserIconID = (
-        await knex.select("id").from("icons").where("icon", newUserInfo.icon)
-      )[0].id;
 
       newUserID = (
         await knex
@@ -231,7 +227,7 @@ describe("UsersService", () => {
             username: newUserInfo.username,
             email: newUserInfo.email,
             password: await hashPassword(newUserInfo.password),
-            icon_id: newUserIconID,
+            icon_id: newUserInfo.icon_id,
           })
           .into("users")
           .returning("users.id")

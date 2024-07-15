@@ -201,6 +201,11 @@ describe("UsersService", () => {
         ],
       });
     });
+
+    afterEach(async () => {
+      //remove user
+      await knex("users").where("nickname", "Oscar").del();
+    });
   });
 
   describe("Bookmark", () => {

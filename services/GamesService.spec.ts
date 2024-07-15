@@ -105,7 +105,7 @@ describe("GamesService", () => {
       const result = await gamesService.getQuizQuestion(quizID);
 
       expect(result.status).toBe("success");
-      expect(result.data).toBeLessThanOrEqual(5);
+      expect(result.data?.length).toBeLessThanOrEqual(5);
 
       result.data?.forEach((question) => {
         expect(question).toHaveProperty("quiz");
@@ -126,7 +126,7 @@ describe("GamesService", () => {
       const quizID = 5;
       const result = await gamesService.getQuizQuestion(quizID);
       expect(result.status).toBe("success");
-      expect(result.data).toBeLessThanOrEqual(5);
+      expect(result.data?.length).toBeLessThanOrEqual(5);
 
       result.data?.forEach((question) => {
         expect(question).toHaveProperty("quiz");

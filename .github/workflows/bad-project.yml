@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  POSTGRES_DB: sign_lang_test2
+  POSTGRES_DB: sign_lang_test
   POSTGRES_USERNAME: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_HOST: postgres

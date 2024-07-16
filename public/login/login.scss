@@ -12,8 +12,8 @@ body {
   display: flex;
   align-items: center;
   min-height: 100vh;
-  padding: 32px;
-  position: relative;
+  padding: 10px;
+  margin: 0 auto;
 }
 
 h2,
@@ -23,8 +23,12 @@ h3 {
   background-color: #fbf1da;
 }
 
+.container {
+  position: relative;
+}
+
 .cloud {
-  width: 200px;
+  width: 150px;
   position: absolute;
   animation: moveclouds 3s infinite alternate-reverse;
   z-index: -1;
@@ -32,18 +36,18 @@ h3 {
 }
 
 .cloud1 {
-  left: 150px;
-  top: 80px;
+  left: 50px;
+  top: -20px;
 }
 
 .cloud2 {
-  right: 150px;
-  top: 200px;
+  right: 200px;
+  top: 350px;
 }
 
 .cloud3 {
   left: -50px;
-  bottom: 80px;
+  bottom: -50px;
 }
 
 .cloud4 {
@@ -56,10 +60,12 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2px 60px;
+  padding: 2px 20px;
   border-radius: 10px;
   position: relative;
-  margin-top: 80px;
+
+  max-width: 60%;
+  margin: 0 auto;
 
   img {
     position: absolute;
@@ -67,6 +73,9 @@ h3 {
     top: -180px;
     z-index: -1;
   }
+}
+.card-body {
+  width: 70%;
 }
 
 input:not([type="submit"]) {
@@ -111,5 +120,16 @@ input[type="submit"] {
   100% {
     transform: translateX(0px);
     transform: translateY(0px);
+  }
+}
+
+@media (max-width: 800px) {
+  .card {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .card-body {
+    width: 100%;
   }
 }

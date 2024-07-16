@@ -102,8 +102,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
-
   padding: 0px 30px;
 
   .logo img {
@@ -119,11 +117,11 @@ nav {
     background-color: $colorYellow;
     border-radius: 50%;
     overflow: hidden;
-    padding: 5px;
+    padding: 2px;
     margin: 10px;
 
     img {
-      width: 45px;
+      width: 70px;
       transform: translateY(10px);
     }
   }
@@ -190,6 +188,7 @@ nav {
 }
 
 .alphabet-lists {
+  min-height: 100vh;
   background-color: $colorLightBlue;
   padding: 50px;
 

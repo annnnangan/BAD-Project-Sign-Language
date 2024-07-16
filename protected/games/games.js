@@ -1,6 +1,7 @@
 import { loadAlphabet } from "./js/load-alphabet.js";
 import "./js/load-quiz-list.js";
 import { loadQuizList } from "./js/load-quiz-list.js";
+import { loadUserIcon } from "./js/load-icon.js";
 
 window.onload = loadPage();
 
@@ -13,6 +14,8 @@ async function loadPage() {
   setTimeout(() => {
     preload.classList.add("preload-finish");
   }, 2000);
+
+  loadUserIcon();
 
   const quizTab = document.querySelector(".tabs .quiz");
   const learningTab = document.querySelector(".tabs .learning");

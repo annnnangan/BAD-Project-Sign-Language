@@ -73,7 +73,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
   padding: 0px 30px;
 }
 nav .logo img {
@@ -87,11 +86,11 @@ nav .profile {
   background-color: #f3cc17;
   border-radius: 50%;
   overflow: hidden;
-  padding: 5px;
+  padding: 2px;
   margin: 10px;
 }
 nav .profile img {
-  width: 45px;
+  width: 70px;
   transform: translateY(10px);
 }
 
@@ -149,6 +148,7 @@ nav .profile img {
 }
 
 .alphabet-lists {
+  min-height: 100vh;
   background-color: #b2d8fe;
   padding: 50px;
   display: grid; /* 1 */

@@ -423,12 +423,24 @@ nav .profile img {
   }
 }
 @media (max-width: 460px) {
+  .quiz-lists {
+    gap: 10px;
+  }
   .quiz-lists .quiz-card {
-    max-width: 250px;
+    max-width: 300px;
   }
   .quiz-lists .quiz-card img {
     width: 80px;
     top: -30px;
     right: 10px;
+  }
+}
+@media (max-width: 429px) {
+  .alphabet-lists {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 }/*# sourceMappingURL=games.css.map */

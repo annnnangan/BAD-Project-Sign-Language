@@ -110,8 +110,22 @@ nav {
     width: 200px;
   }
 
-  .profile img {
-    width: 100px;
+  .short-logo {
+    display: none;
+  }
+
+  .profile {
+    border: 1px solid black;
+    background-color: $colorYellow;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 5px;
+    margin: 10px;
+
+    img {
+      width: 45px;
+      transform: translateY(10px);
+    }
   }
 }
 
@@ -528,5 +542,38 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+  }
+
+  .full-logo {
+    display: none;
+  }
+
+  nav .short-logo {
+    display: block;
+  }
+
+  nav .logo img {
+    width: 80px;
+  }
+}
+
+@media (max-width: 342px) {
+  .quiz-lists .quiz-card img {
+    top: -70px;
+    right: 100px;
+  }
+
+  .quiz-lists .quiz-card .highest-score i {
+    font-size: 30px;
+  }
+
+  .quiz-lists .quiz-card .description {
+    h5 {
+      font-size: 14px;
+    }
+  }
+
+  .quiz-lists .quiz-card {
+    max-width: 200px;
   }
 }

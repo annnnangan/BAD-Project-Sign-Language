@@ -266,7 +266,7 @@ nav {
 
 .quiz-lists {
   background-color: $colorLightBlue;
-  height: 100%;
+  min-height: 100vh;
   padding: 100px 10px;
   display: none; /* 1 */
   flex-direction: row;
@@ -504,5 +504,16 @@ nav {
   }
   100% {
     transform: translateY(0px);
+  }
+}
+
+@media (max-width: 460px) {
+  .quiz-lists .quiz-card {
+    max-width: 250px;
+  }
+  .quiz-lists .quiz-card img {
+    width: 80px;
+    top: -30px;
+    right: 10px;
   }
 }

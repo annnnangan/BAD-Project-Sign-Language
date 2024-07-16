@@ -30,3 +30,20 @@ jobs:
           yarn knex migrate:latest --env test
           yarn knex seed:run --env test
           yarn test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: testing
+    steps:
+      - name: ssh to pull latest version and restart
+        uses: appleboy/ssh-action@master
+        with:
+          script: |
+            cd BAD-Project-Sign-Language
+            git pull origin main
+            yarn install
+            yarn knex migrate:latest --env production
+            pm2 restart bad-project
+          host: sign-language-monster.live
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}

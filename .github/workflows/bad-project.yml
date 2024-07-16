@@ -28,5 +28,5 @@ jobs:
       - run: |
           yarn install
           yarn knex migrate:latest --env test
-          yarn knex seed:run
+          yarn knex seed:run --env test
           yarn test

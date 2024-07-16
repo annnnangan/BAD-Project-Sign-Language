@@ -434,6 +434,20 @@ nav .profile img {
     transform: translateY(0px);
   }
 }
+@media (max-width: 991px) {
+  .modal {
+    --bs-modal-width: 90%;
+  }
+  .modal-body .left {
+    width: 50%;
+  }
+  .modal-body .left img {
+    width: 90%;
+  }
+  .modal-body .right {
+    width: 50%;
+  }
+}
 @media (max-width: 460px) {
   .quiz-lists {
     gap: 10px;

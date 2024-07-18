@@ -50,8 +50,9 @@ app.post("/upload", async (req, res) => {
   let base64Image = userImage.split(";base64,").pop();
   let timestamp = Date.now();
 
+  console.log("check timestamp", timestamp);
   fs.writeFile(
-    `snapshot/${timestamp}.png`,
+    `${__dirname}/snapshot/${timestamp}.png`,
     base64Image,
     { encoding: "base64" },
     function (err) {

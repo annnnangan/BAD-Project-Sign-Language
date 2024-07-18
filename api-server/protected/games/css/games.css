@@ -326,6 +326,7 @@ nav .profile img {
   align-items: center;
   padding-bottom: 50px;
   position: relative;
+  padding-top: 50px;
 }
 .modal-body .fa-bookmark {
   position: absolute;
@@ -351,7 +352,6 @@ nav .profile img {
 }
 .modal-body .web-cam {
   width: 100%;
-  height: 90%;
 }
 .modal-body .capture button {
   border-radius: 20px;
@@ -467,9 +467,13 @@ nav .profile img {
   .modal-body {
     flex-direction: column;
     padding-bottom: 250px;
+    padding-top: 20px;
   }
   .modal-body .left {
     width: 60%;
+  }
+  .modal-body .left img {
+    transform: translateY(40px);
   }
   .modal-body .right {
     width: 100%;
@@ -504,6 +508,22 @@ nav .profile img {
   }
   nav .logo img {
     width: 80px;
+  }
+  .character {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .character .bubble {
+    top: 10px;
+    left: 10px;
+  }
+  .modal-body {
+    padding-bottom: 150px;
+  }
+  .character .bubble::before {
+    left: 4rem;
+    width: 5rem;
+    height: 2rem;
   }
 }
 @media (max-width: 342px) {

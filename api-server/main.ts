@@ -67,9 +67,7 @@ app.post("/upload", async (req, res) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(
-      `${__dirname}/../api-server/snapshot/${timestamp}.png`
-    ),
+    body: JSON.stringify(`${__dirname}/snapshot/${timestamp}.png`),
   });
 
   const output = await result.json();

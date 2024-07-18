@@ -25,7 +25,8 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
-      - run: |
+      - working-directory: ./api-server
+        run: |
           yarn install
           yarn knex migrate:latest --env test
           yarn knex seed:run --env test

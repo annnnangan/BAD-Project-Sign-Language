@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import { UsersService } from "../services/UsersService";
 
+class HttpError extends Error {
+  public constructor(public code: number, message?: string) {
+    super(message);
+  }
+}
+
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -9,6 +15,13 @@ export class UsersController {
       const userEmail: string = req.body.email;
       const userPassword: string = req.body.password;
 
+      if (!userEmail) {
+        throw new HttpError(400, "Email is not Provided");
+      }
+
+      if (!userPassword) {
+        throw new Error("Password is not Provided");
+      }
       const result = await this.usersService.getUsersLogin(
         userEmail,
         userPassword
@@ -19,10 +32,13 @@ export class UsersController {
         req.session.user_id = result.message?.userID;
         res.status(200).json({ message: "success" });
       } else {
-        res.status(401).json({ message: "error" });
+        res.status(401).json({ message: "username/password is incorrect" });
       }
     } catch (e) {
-      res.status(500).json({ message: "error" });
+      console.log(e);
+      if (e.code) {
+        res.status(e.code).json({ message: e.message });
+      } else res.status(500).json({ message: "Internal Server Error" });
     }
   };
 

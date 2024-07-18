@@ -10,7 +10,7 @@ tf.keras.backend.clear_session(
     free_memory=True
 )
 
-tf.config.experimental.set_visible_devices([], 'GPU')
+# tf.config.experimental.set_visible_devices([], 'GPU')
 
 # Load the trained model
 model = tf.keras.models.load_model('my_model.keras')

@@ -39,10 +39,15 @@ jobs:
         with:
           script: |
             cd BAD-Project-Sign-Language
-            git pull origin main
+            git pull
+            cd api-server
             yarn install
             yarn knex migrate:latest --env production
-            pm2 restart bad-project
+            pm2 restart api_server
+            cd ../sanic-server
+            source bad_env/bin/activate
+            pm2 restart sanic_server
+
           host: sign-language-monster.live
           username: ubuntu
           port: 22

@@ -27,13 +27,15 @@ body {
 }
 
 .preload {
+  display: block;
+  margin: 0 auto;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   z-index: 3;
   background-color: $colorBeige;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -41,10 +43,14 @@ body {
   // transition: all 1s ease;
   transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 
+  .preload-image {
+    display: flex;
+    gap: 20px;
+  }
+
   img {
-    width: 50px;
+    max-width: 40px;
     animation: bounces 1s ease infinite alternate;
-    margin: 0px 10px;
   }
 
   img:nth-child(2) {
@@ -59,6 +65,8 @@ body {
     display: flex;
     font-family: "Slackey", sans-serif;
     font-size: 25px;
+    margin: 20px;
+    text-align: center;
 
     span {
       animation: waviy 1s infinite;
@@ -103,13 +111,15 @@ body {
 .app {
   position: relative;
   background: #fff;
-  width: 700px;
+  width: 100%;
+  max-width: 800px;
   border-radius: 10px;
   padding: 30px;
   border: 10px solid #5c97d1;
 }
 
-.app.predicting {
+.app.predicting,
+.app.feedbacked {
   filter: brightness(0.5);
 }
 
@@ -141,7 +151,8 @@ body {
 }
 
 .multiple-choices img {
-  width: 270px;
+  max-width: 270px;
+  width: 100%;
 }
 
 .btn {
@@ -209,11 +220,11 @@ canvas {
   align-items: center;
   gap: 20px;
   margin: 20px auto 0;
-  /* display: none; */
 }
 
 .web-cam {
-  max-width: 400px;
+  width: 80%;
+  max-width: 500px;
 }
 
 .capture button {
@@ -226,8 +237,11 @@ canvas {
 
 .modal {
   position: absolute;
-  width: 250px;
-  height: 150px;
+  // width: 250px;
+  // height: 150px;
+  width: 50%;
+  max-width: 250px;
+  margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
   border: 5px solid #014487;
@@ -261,50 +275,47 @@ canvas {
 
   .detect-load-image {
     position: relative;
+    margin: 0 auto;
 
     .magnifier {
       position: absolute;
       left: 10px;
-      width: 70px;
+      max-width: 70px;
+      width: 70%;
       animation: magnifierMove 3s linear infinite alternate;
     }
 
     .character {
-      width: 60px;
-      padding: 5px;
+      width: 60%;
+      max-width: 60px;
+      transform: translateX(10px);
     }
   }
 }
 
 .detect-feedback {
-  width: 400px;
-  height: 250px;
-  gap: 30px;
-  background-color: $colorBlue;
+  max-width: 300px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 
-  .container {
-    display: flex;
+  .top {
+    position: absolute;
+    top: -90px;
+
+    img {
+      max-width: 100px;
+    }
   }
 
-  .left {
-    display: flex;
-
-    .feedback-image {
-      width: 150px;
-    }
-
+  .body {
     h5 {
-      transform: rotate(-10deg) translateX(-40px) translateY(-10px);
+      text-align: center;
       font-size: 20px;
-      animation: textMove 1s linear infinite alternate;
     }
-  }
-
-  .right {
-    background-color: $colorLightBlue;
-    border-radius: 20px;
-    .sign-language-demo {
-      width: 150px;
+    img {
+      max-width: 130px;
     }
   }
 }
@@ -365,9 +376,44 @@ canvas {
   }
 }
 
-@keyframes textMove {
-  to {
-    transform: translateX(-10px);
+@media (max-width: 454px) {
+  .preload .preload-text {
+    font-size: 20px;
+  }
+
+  .app {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 383px) {
+  h1 {
+    font-size: 15px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin: 2px 3px;
+    }
+  }
+}
+
+@media (max-width: 371px) {
+  .preload .preload-text span {
+    display: none;
+  }
+}
+
+@media (max-width: 302px) {
+  .detect-load .detect-load-text span {
+    display: none;
+  }
+
+  .detect-load .detect-load-text h5 {
+    font-size: 10px;
   }
 }
 

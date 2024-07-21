@@ -128,6 +128,7 @@ async function loadPage() {
 
   async function handleNextButton() {
     currentQuestionIndex = currentQuestionIndex + 1;
+    app.classList.remove("feedbacked");
     if (currentQuestionIndex < questions.length) {
       showQuestion();
     } else {
@@ -183,6 +184,7 @@ async function loadPage() {
     setTimeout(() => {
       app.classList.remove("predicting");
       detectLoader.style.display = "none";
+      app.classList.add("feedbacked");
       detectFeedback.style.display = "flex";
       signLanguageDemo.src = `../assets/sign-language/${questionAnswer.toLowerCase()}-sign.png`;
     }, 2000);

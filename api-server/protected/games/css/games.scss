@@ -559,8 +559,8 @@ nav {
 @media (max-width: 735px) {
   .modal-body {
     flex-direction: column;
-    padding-bottom: 250px;
-    padding-top: 20px;
+    margin-bottom: 100px;
+    margin-top: 5px;
   }
 
   .modal-body .left {

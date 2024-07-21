@@ -45,6 +45,8 @@ captureBtn.addEventListener("click", async (event) => {
     ".feedback .modal-description"
   );
 
+  alert(detectedCharacter);
+
   if (detectedCharacter != "L") {
     characterFace.src = `assets/others/monster-sad-face.png`;
     modalTitle.innerText = "It seems wrong.";

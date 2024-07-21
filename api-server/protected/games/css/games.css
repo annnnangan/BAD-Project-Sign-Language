@@ -472,9 +472,6 @@ nav .profile img {
   .modal-body .left {
     width: 60%;
   }
-  .modal-body .left img {
-    transform: translateY(40px);
-  }
   .modal-body .right {
     width: 100%;
   }

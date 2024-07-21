@@ -85,10 +85,7 @@ async function loadPage() {
       });
       const detectedCharacter = (await response.json()).data;
 
-      console.log(
-        "compare result",
-        currentLearningAlphabet != detectedCharacter.toLowerCase()
-      );
+      alert(detectedCharacter);
 
       if (currentLearningAlphabet != detectedCharacter.toLowerCase()) {
         throw Error();

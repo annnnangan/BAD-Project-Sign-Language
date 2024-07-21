@@ -74,14 +74,14 @@ app.post("/upload", async (req, res) => {
   const output = await result.json();
 
   //Delete the image after prediction
-  // fs.unlink(`snapshot/${timestamp}.png`, (err) => {
-  //   if (err) {
-  //     throw err;
-  //   }
+  fs.unlink(`snapshot/${timestamp}.png`, (err) => {
+    if (err) {
+      throw err;
+    }
 
-  //   console.log("Delete File successfully.");
-  // });
-  // console.log(output);
+    console.log("Delete File successfully.");
+  });
+  console.log(output);
   res.json(output);
 });
 

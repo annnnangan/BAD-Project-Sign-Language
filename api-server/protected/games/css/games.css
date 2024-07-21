@@ -466,8 +466,8 @@ nav .profile img {
 @media (max-width: 735px) {
   .modal-body {
     flex-direction: column;
-    margin-bottom: 100px;
-    margin-top: 5px;
+    margin-bottom: 150px;
+    margin-top: 20px;
   }
   .modal-body .left {
     width: 60%;
@@ -477,6 +477,10 @@ nav .profile img {
   }
   .modal-body .right {
     width: 100%;
+  }
+  .web-cam {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 460px) {

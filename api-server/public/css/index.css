@@ -267,6 +267,11 @@ button:hover,
   font-size: 30px;
 }
 
+.deny-message {
+  display: none;
+  margin: 50px 100px;
+}
+
 @keyframes waviy {
   0%, 40%, 100% {
     transform: translateY(0);

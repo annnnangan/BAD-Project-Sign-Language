@@ -359,6 +359,12 @@ canvas {
   }
 }
 
+.deny-message {
+  display: none;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
 @keyframes magnifierMove {
   0% {
     transform: translateX(30px);

@@ -310,6 +310,10 @@ nav .profile img {
   background-color: #ce7f71;
 }
 
+.deny-message {
+  display: none;
+}
+
 .modal-content {
   border: 4px solid #25c7d5;
   background-color: #fefbf4;

@@ -8,6 +8,8 @@ const captureBtn = document.querySelector(".capture-btn");
 const video = document.querySelector(".web-cam");
 const canvas = document.querySelector(".canvas");
 const detectLoading = document.querySelector(".detect-load");
+const denyMessage = document.querySelector(".deny-message");
+const demoImg = document.querySelector(".games-container img");
 
 startTrialBtn.addEventListener("click", async (event) => {
   startTrialBtn.style.display = "none";
@@ -84,6 +86,10 @@ async function startWebCam() {
     window.stream = stream;
   } catch (e) {
     console.log(e.toString());
+    denyMessage.style.display = "block";
+    video.style.display = "none";
+    captureBtn.style.display = "none";
+    demoImg.style.display = "none";
   }
 }
 

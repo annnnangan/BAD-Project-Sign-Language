@@ -24,6 +24,7 @@ async function loadPage() {
   const choiceNextButton = document.querySelector(
     ".multiple-choices .next-btn"
   );
+  const denyMessage = document.querySelector(".deny-message");
 
   const restartButton = document.querySelector(".restart-btn");
   const backButton = document.querySelector(".back-btn");
@@ -208,6 +209,9 @@ async function loadPage() {
       window.stream = stream;
     } catch (e) {
       console.log(e.toString());
+      denyMessage.style.display = "block";
+      video.style.display = "none";
+      captureBtn.style.display = "none";
     }
   }
 

@@ -51,6 +51,7 @@ async function loadPage() {
   const video = document.querySelector(".web-cam");
   const canvas = document.querySelector(".canvas");
   const demoImg = document.querySelector(".left img");
+  const denyMessage = document.querySelector(".deny-message");
 
   //Capture User Sign Language with webcam and pass to server for detection
   captureBtn.addEventListener("click", async (event) => {
@@ -198,5 +199,8 @@ async function startWebCam() {
     window.stream = stream;
   } catch (e) {
     console.log(e.toString());
+    denyMessage.style.display = "block";
+    video.style.display = "none";
+    captureBtn.style.display = "none";
   }
 }

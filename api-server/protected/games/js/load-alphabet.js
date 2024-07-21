@@ -62,6 +62,7 @@ export async function loadAlphabet() {
   const canvas = document.querySelector(".canvas");
   const demoImg = document.querySelector(".left img");
   const bookmarkButton = document.querySelector(".fa-bookmark");
+  const denyMessage = document.querySelector(".deny-message");
   let isBookmark;
 
   alphabetCard.forEach((i) => {
@@ -141,6 +142,10 @@ export async function loadAlphabet() {
       window.stream = stream;
     } catch (e) {
       console.log(e.toString());
+
+      denyMessage.style.display = "block";
+      video.style.display = "none";
+      captureBtn.style.display = "none";
     }
   }
 

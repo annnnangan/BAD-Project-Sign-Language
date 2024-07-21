@@ -69,6 +69,29 @@
     <div class="trial-container">
       <h3>Have a try now</h3>
 
+      <!-- Loading modal -->
+      <div class="detect-load">
+        <div class="detect-load-image">
+          <img
+            class="character"
+            src="../assets/character/monster-orange.png"
+            alt=""
+          />
+          <img
+            class="magnifier"
+            src="../assets/feedback-images/magnifier.png"
+            alt=""
+          />
+        </div>
+        <div class="detect-load-text">
+          <h5>Analyzing with AI&nbsp;</h5>
+
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+      </div>
+
       <div class="trial">
         <div class="cover">
           <div class="loading">
@@ -94,55 +117,14 @@
           </div>
 
           <div class="capture">
-            <button
-              class="capture-btn"
-              data-bs-target="#feedbackModal"
-              data-bs-toggle="modal"
-            >
-              Capture
-            </button>
+            <button class="capture-btn" data-bs-toggle="modal">Capture</button>
           </div>
         </div>
       </div>
 
       <!-- displaying correct/wrong feedback modal  -->
-      <div
-        class="modal fade"
-        id="feedbackModal"
-        aria-hidden="true"
-        aria-labelledby="feedbackModalLabel"
-        tabindex="-1"
-      >
-        <div class="modal-dialog modal-dialog-centered feedback">
-          <div class="modal-content">
-            <div class="modal-header">
-              <img
-                class="character-face"
-                src="../assets/character/monster-excited-face.png"
-                alt=""
-              />
 
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <h5 class="modal-title">Congratulations!</h5>
-              <p class="modal-description">You've got it right!</p>
-            </div>
-            <div class="modal-footer">
-              <a href="register/register.html"
-                ><button type="button" class="btn btn-secondary">
-                  I like this games!!!
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="feedback-container"></div>
 
       <canvas class="canvas"></canvas>
     </div>

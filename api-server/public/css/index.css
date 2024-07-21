@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 body {
   background-color: #eeeeee;
   font-family: "Play", sans-serif;
@@ -20,7 +21,8 @@ canvas {
   display: none;
 }
 
-button {
+button,
+.button {
   color: white;
   border: 0px;
   background-color: #ffb100;
@@ -28,7 +30,8 @@ button {
   padding: 6px 30px;
   transition: all 1s;
 }
-button:hover {
+button:hover,
+.button:hover {
   transition: all 1s;
   background-color: #ffd36d;
 }
@@ -117,6 +120,7 @@ button:hover {
 }
 
 .trial-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -184,27 +188,93 @@ button:hover {
   width: 80%;
 }
 
-.feedback {
-  position: relative;
+.black-screen {
+  filter: brightness(0.5);
 }
-.feedback .character-face {
+
+.detect-load {
+  z-index: 2;
   position: absolute;
-  width: 200px;
-  top: -140px;
-  z-index: -1;
-  left: 135px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fbf1da;
+  margin: 0 auto;
+  max-width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 5px solid #014487;
+  height: 40%;
 }
-.feedback .modal-body {
+.detect-load .detect-load-text {
+  display: flex;
+  font-family: "Slackey", sans-serif;
+}
+.detect-load .detect-load-text h5 {
+  font-size: 13px;
+}
+.detect-load .detect-load-text span {
+  animation: waviy 1s infinite;
+}
+.detect-load .detect-load-text span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.detect-load .detect-load-text span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.detect-load .detect-load-image {
+  position: relative;
+  margin: 0 auto;
+}
+.detect-load .detect-load-image .magnifier {
+  position: absolute;
+  left: 10px;
+  max-width: 70px;
+  width: 70%;
+  animation: magnifierMove 3s linear infinite alternate;
+}
+.detect-load .detect-load-image .character {
+  width: 60%;
+  max-width: 60px;
+  transform: translateX(10px);
+}
+
+.feedback-container {
+  position: relative;
+  transition: 1s all;
+}
+.feedback-container .character-face {
+  position: absolute;
+  max-width: 200px;
+  width: 50%;
+  z-index: -1;
+  top: -10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.feedback-container .modal-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 15px;
 }
-.feedback .modal-body h5 {
+.feedback-container .modal-body h5 {
   font-size: 30px;
 }
 
+@keyframes waviy {
+  0%, 40%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-5px);
+  }
+}
 @media (max-width: 992px) {
   ul {
     justify-content: flex-start;
@@ -249,6 +319,17 @@ button:hover {
   .key-visual .introduction .hand {
     top: -3px;
     right: -20px;
+  }
+}
+@media (max-width: 265px) {
+  .feedback-container .modal-body h5 {
+    font-size: 14px;
+  }
+  .trial-container p {
+    font-size: 12px;
+  }
+  .modal-footer button {
+    font-size: 10px;
   }
 }
 @media (max-width: 199px) {

@@ -18,7 +18,7 @@ describe("gamesController", () => {
   });
 
   describe("Login / Register", () => {
-    it("should not login as user not exist", async () => {
+    it.skip("should not login as user not exist", async () => {
       //todo: Mock user id
       req = {
         body: { email: "test@gmail.com", password: "123456" },

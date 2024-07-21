@@ -71,6 +71,12 @@ async function loadPage() {
       ".feedback .modal-description"
     );
     const backButton = document.querySelector(".feedback .modal-footer button");
+    const closeButton = document.querySelector(".feedback .btn-close");
+
+    closeButton.addEventListener("click", () => {
+      feedbackModal.classList.toggle("d-block");
+    });
+
     try {
       const response = await fetch("/upload", {
         method: "POST",
@@ -84,8 +90,6 @@ async function loadPage() {
         }),
       });
       const detectedCharacter = (await response.json()).data;
-
-      alert(detectedCharacter);
 
       if (currentLearningAlphabet != detectedCharacter.toLowerCase()) {
         throw Error();

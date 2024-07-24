@@ -27,6 +27,12 @@ To get a local copy up and running follow these simple example steps.
    source .pyenv/bin/activate
    pip install -r requirements.txt
    ```
+5. Navigate to `api-server` folder to run knex migrate and knex seed to preapre sample database and data
+   ```sh
+   yarn knex migrate:latest
+   yarn knex seed:run
+   ```
+   
 4. Navigate to `api-server` folder to start nodejs server
    ```sh
    cd api-server

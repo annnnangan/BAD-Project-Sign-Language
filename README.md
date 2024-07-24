@@ -4,6 +4,7 @@
 
 This is a project making use of AI to detect your hand gesture to identify if you are doing the correct sign language. The AI is self-trained using a CNN model. You coudl learn the alphabet in ASL Sign Language, test what you have learn with quizzes and compare your quiz result with friends. Please see the video (https://youtu.be/trs0H3QVKG0) for the live demo.
 
+The project is deployed via AWS. You could visit the website (https://sign-language-monster.live/).
 
 <!-- GETTING STARTED -->
 ## Getting Started
